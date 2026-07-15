@@ -1,0 +1,3 @@
+synonym_id,tag_id,surface,normalized_surface,source,is_active,memo
+SYN000001,A001,プロデュース,プロデュース,manual,TRUE,
+SYN000002,D001,お笑い,お笑い,manual,TRUE,

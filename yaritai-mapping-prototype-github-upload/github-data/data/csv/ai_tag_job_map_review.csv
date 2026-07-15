@@ -1,0 +1,211 @@
+row_number,source_tag_id,source_tag_label,target_tag_id,target_tag_label,original_job_name,job_id,official_job_name,weight,reason,route_type,tag_status,job_match_status,review_status,note
+2,D001,教育,D006,教育・学び,学校教員,JT0180,中学校教員,1.0,子どもや学生の学びに直接関わるため,classic,mapped,candidate,review,学校教員 is broad; candidate: 中学校教員
+3,D001,教育,D006,教育・学び,塾講師,JT0396,学習塾教師,0.9,教科学習や受験支援に関わるため,classic,mapped,mapped,ready,塾講師 -> 学習塾教師
+4,D001,教育,D006,教育・学び,教材編集者,JT0211,雑誌編集者,0.8,学びやすい教材作りに関わるため,classic,mapped,candidate,review,fuzzy candidate: 雑誌編集者
+5,D001,教育,D006,教育・学び,教育サービス企画,,,0.8,新しい学習体験や仕組みを作るため,classic,mapped,not_found,review,
+6,D001,教育,D006,教育・学び,キャリアカウンセラー,JT0136,キャリアカウンセラー/キャリアコンサルタント,0.7,進路や学びの選択を支えるため,classic,mapped,mapped,ready,キャリアカウンセラー -> キャリアカウンセラー/キャリアコンサルタント
+7,D001,教育,D006,教育・学び,人材育成担当,,,0.7,社会人の学びや成長支援に関わるため,surprise,mapped,not_found,review,
+8,D001,教育,D006,教育・学び,UXリサーチャー,,,0.5,学習者の困りごとを調べて改善に活かせるため,surprise,mapped,not_found,review,
+9,D001,教育,D006,教育・学び,ゲームプランナー,JT0330,ゲームクリエーター,0.4,遊びを通じた学習体験に関われるため,surprise,mapped,mapped,ready,ゲームプランナー -> ゲームクリエーター
+10,D001,教育,D006,教育・学び,NPO職員,JT0522,NPO法人職員（企画・運営）,0.6,教育格差や学習支援に関わる道があるため,surprise,mapped,mapped,ready,NPO職員 -> NPO法人職員（企画・運営）
+11,D001,教育,D006,教育・学び,図書館司書,JT0182,図書館司書,0.6,知識や学びに触れる場を支えるため,classic,mapped,exact,ready,
+12,D002,医療,D010,医療・福祉,医師,JT0404,内科医,1.0,病気の診断や治療に直接関わるため,classic,mapped,candidate,review,医師 is broad; candidate: 内科医
+13,D002,医療,D010,医療・福祉,看護師,JT0156,看護師,1.0,患者のケアや健康支援に関わるため,classic,mapped,exact,ready,
+14,D002,医療,D010,医療・福祉,薬剤師,JT0158,薬剤師,0.9,薬を通じて健康や治療を支えるため,classic,mapped,exact,ready,
+15,D002,医療,D010,医療・福祉,理学療法士,JT0167,理学療法士（PT）,0.8,リハビリや身体機能の回復に関わるため,classic,mapped,mapped,ready,理学療法士 -> 理学療法士（PT）
+16,D002,医療,D010,医療・福祉,公認心理師,,,0.8,メンタルヘルスの支援に関わるため,classic,mapped,not_found,review,
+17,D002,医療,D010,医療・福祉,医療機器営業,JT0462,OA機器営業,0.6,医療現場を製品や情報で支えるため,surprise,mapped,candidate,review,fuzzy candidate: OA機器営業
+18,D002,医療,D010,医療・福祉,ヘルスケアアプリ企画,,,0.6,健康管理をデジタルで支えるため,surprise,mapped,not_found,review,
+19,D002,医療,D010,医療・福祉,管理栄養士,JT0171,栄養士,0.7,食事や栄養から健康を支えるため,classic,mapped,mapped,ready,管理栄養士 -> 栄養士
+20,D002,医療,D010,医療・福祉,医療ソーシャルワーカー,JT0408,医療ソーシャルワーカー,0.7,患者の生活や福祉面を支えるため,classic,mapped,exact,ready,
+21,D002,医療,D010,医療・福祉,データアナリスト,JT0323,データサイエンティスト,0.5,医療データから予防や改善に関われるため,surprise,mapped,mapped,ready,データアナリスト -> データサイエンティスト
+22,D004,環境,D008,環境・サステナビリティ,環境コンサルタント,JT0081,経営コンサルタント,1.0,環境課題の調査や改善策に関わるため,classic,mapped,candidate,review,fuzzy candidate: 経営コンサルタント
+23,D004,環境,D008,環境・サステナビリティ,再生可能エネルギー企画,,,0.9,脱炭素やエネルギー転換に関わるため,classic,mapped,not_found,review,
+24,D004,環境,D008,環境・サステナビリティ,自然保護団体職員,,,0.8,森林や海や生き物の保全に関わるため,classic,mapped,not_found,review,
+25,D004,環境,D008,環境・サステナビリティ,研究職,,,0.8,環境や生態系の科学的理解に関わるため,classic,mapped,not_found,review,
+26,D004,環境,D008,環境・サステナビリティ,行政職員,JT0138,国家公務員（行政事務）,0.7,環境政策や地域の自然保全に関われるため,classic,mapped,candidate,review,行政職員 is broad; candidate: 国家公務員（行政事務）
+27,D004,環境,D008,環境・サステナビリティ,サステナビリティ推進担当,,,0.8,企業活動を環境配慮へつなげるため,surprise,mapped,not_found,review,
+28,D004,環境,D008,環境・サステナビリティ,商品企画,JT0461,商品企画開発（チェーンストア）,0.5,環境に配慮した商品作りに関われるため,surprise,mapped,candidate,review,商品企画 is broad; candidate: 商品企画開発（チェーンストア）
+29,D004,環境,D008,環境・サステナビリティ,林業職,JT0230,林業作業,0.7,森林資源の管理や活用に関わるため,classic,mapped,mapped,ready,林業職 -> 林業作業
+30,D004,環境,D008,環境・サステナビリティ,広報・PR,JT0444,広報・PR担当,0.4,環境活動や課題を社会に伝えるため,surprise,mapped,candidate,review,substring candidate: 広報・PR担当
+31,D004,環境,D008,環境・サステナビリティ,データサイエンティスト,JT0323,データサイエンティスト,0.5,気候や環境データの分析に関われるため,surprise,mapped,exact,ready,
+32,D005,食,D004,食,食品メーカー商品開発,,,1.0,食品や味や食体験の開発に関わるため,classic,mapped,not_found,review,
+33,D005,食,D004,食,農業法人スタッフ,,,0.9,作物づくりや農業経営に関わるため,classic,mapped,not_found,review,
+34,D005,食,D004,食,管理栄養士,JT0171,栄養士,0.8,食と健康をつなぐ仕事に関わるため,classic,mapped,mapped,ready,管理栄養士 -> 栄養士
+35,D005,食,D004,食,飲食店企画,,,0.8,食を通じた場や体験作りに関わるため,classic,mapped,not_found,review,
+36,D005,食,D004,食,バイヤー,JT0544,マーチャンダイザー、バイヤー,0.7,食材や商品の流通に関わるため,classic,mapped,candidate,review,substring candidate: マーチャンダイザー、バイヤー
+37,D005,食,D004,食,フードロス対策事業企画,,,0.7,食の無駄を減らす仕組みに関われるため,surprise,mapped,not_found,review,
+38,D005,食,D004,食,料理研究家,,,0.6,食の楽しさや活用法を広げるため,surprise,mapped,not_found,review,
+39,D005,食,D004,食,地域商社,,,0.6,地域の食材を商品や販路につなげるため,surprise,mapped,not_found,review,
+40,D005,食,D004,食,フードテック企画,,,0.6,技術で食の課題解決に関われるため,surprise,mapped,not_found,review,
+41,D005,食,D004,食,品質管理,JT0296,生産・品質管理技術者,0.8,安全で安定した食品づくりを支えるため,classic,mapped,candidate,review,substring candidate: 生産・品質管理技術者
+42,D006,テクノロジー,D007,テクノロジー,ソフトウェアエンジニア,JT0316,ソフトウェア開発（パッケージソフト）,1.0,アプリやシステムの開発に直接関わるため,classic,mapped,mapped,ready,ソフトウェアエンジニア -> ソフトウェア開発（パッケージソフト）
+43,D006,テクノロジー,D007,テクノロジー,AIエンジニア,JT0325,AIエンジニア,1.0,AIモデルや活用システムを作るため,classic,mapped,exact,ready,
+44,D006,テクノロジー,D007,テクノロジー,データサイエンティスト,JT0323,データサイエンティスト,0.9,データ分析から意思決定を支えるため,classic,mapped,exact,ready,
+45,D006,テクノロジー,D007,テクノロジー,プロダクトマネージャー,JT0322,プロジェクトマネージャ（IT）,0.8,技術を使ったサービス作りを進めるため,classic,mapped,candidate,review,fuzzy candidate: プロジェクトマネージャ（IT）
+46,D006,テクノロジー,D007,テクノロジー,ITコンサルタント,JT0362,ITコンサルタント,0.8,企業や社会のデジタル化を支援するため,classic,mapped,exact,ready,
+47,D006,テクノロジー,D007,テクノロジー,UXデザイナー,JT0552,UX/UIデザイナー,0.7,使いやすいデジタル体験を設計するため,surprise,mapped,mapped,ready,UXデザイナー -> UX/UIデザイナー
+48,D006,テクノロジー,D007,テクノロジー,ロボット開発,JT0231,産業用ロボット開発技術者,0.8,機械とソフトを組み合わせた技術に関わるため,classic,mapped,candidate,review,substring candidate: 産業用ロボット開発技術者
+49,D006,テクノロジー,D007,テクノロジー,セキュリティエンジニア,JT0321,セキュリティエキスパート（オペレーション）,0.7,情報やシステムを守る仕事に関わるため,classic,mapped,mapped,ready,セキュリティエンジニア -> セキュリティエキスパート（オペレーション）
+50,D006,テクノロジー,D007,テクノロジー,教育サービス企画,,,0.5,AIやアプリを学びに活かせるため,surprise,mapped,not_found,review,
+51,D006,テクノロジー,D007,テクノロジー,法務,JT0089,弁護士,0.4,AIやデータ利用のルール作りに関われるため,surprise,mapped,candidate,review,法務 is broad; candidate: 弁護士
+52,D007,表現・メディア,D002,映像・放送,映像クリエイター,,,1.0,映像を通じた表現や発信に関わるため,classic,mapped,not_found,review,
+53,D007,表現・メディア,D002,映像・放送,編集者,,,0.9,言葉や企画で情報を届けるため,classic,mapped,needs_review,review,multiple candidates: 図書編集者 / 雑誌編集者 / 映像編集者
+54,D007,表現・メディア,D002,映像・放送,広告プランナー,JT0333,広告ディレクター,0.9,メッセージやブランド体験を設計するため,classic,mapped,candidate,review,広告プランナー is broad; candidate: 広告ディレクター
+55,D007,表現・メディア,D002,映像・放送,SNS運用担当,,,0.8,デジタル上で情報発信や反応作りに関わるため,classic,mapped,not_found,review,
+56,D007,表現・メディア,D002,映像・放送,記者・ライター,JT0208,新聞記者,0.8,取材や文章で社会に情報を届けるため,classic,mapped,candidate,review,記者・ライター is broad; candidate: 新聞記者
+57,D007,表現・メディア,D002,映像・放送,アートディレクター,JT0331,アートディレクター,0.7,表現の方向性や見え方を作るため,classic,mapped,exact,ready,
+58,D007,表現・メディア,D002,映像・放送,イベント企画,JT0566,イベントの企画・運営,0.6,リアルな場で表現や発信を届けられるため,surprise,mapped,candidate,review,fuzzy candidate: イベントの企画・運営
+59,D007,表現・メディア,D002,映像・放送,広報・PR,JT0444,広報・PR担当,0.7,企業や活動の魅力を社会に伝えるため,surprise,mapped,candidate,review,substring candidate: 広報・PR担当
+60,D007,表現・メディア,D002,映像・放送,コミュニティマネージャー,,,0.5,発信を通じて人のつながりを育てるため,surprise,mapped,not_found,review,
+61,D007,表現・メディア,D002,映像・放送,データアナリスト,JT0323,データサイエンティスト,0.4,反応や視聴データから表現改善に関われるため,surprise,mapped,mapped,ready,データアナリスト -> データサイエンティスト
+62,D008,スポーツ,D005,スポーツ,スポーツトレーナー,,,1.0,選手や利用者の身体づくりを支えるため,classic,mapped,not_found,review,
+63,D008,スポーツ,D005,スポーツ,体育教員,JT0180,中学校教員,0.8,運動やスポーツの学びに関わるため,classic,mapped,candidate,review,体育教員 is broad; candidate: 中学校教員
+64,D008,スポーツ,D005,スポーツ,スポーツチーム運営,,,0.9,チームや試合を支える運営に関わるため,classic,mapped,not_found,review,
+65,D008,スポーツ,D005,スポーツ,フィットネスインストラクター,JT0120,スポーツインストラクター,0.8,健康づくりや運動習慣を支えるため,classic,mapped,candidate,review,fuzzy candidate: スポーツインストラクター
+66,D008,スポーツ,D005,スポーツ,理学療法士,JT0167,理学療法士（PT）,0.7,ケガの回復や身体機能の改善に関わるため,classic,mapped,mapped,ready,理学療法士 -> 理学療法士（PT）
+67,D008,スポーツ,D005,スポーツ,スポーツマーケティング,,,0.7,競技やチームの価値を広げるため,surprise,mapped,not_found,review,
+68,D008,スポーツ,D005,スポーツ,イベント企画,JT0566,イベントの企画・運営,0.6,大会や地域スポーツの場作りに関われるため,surprise,mapped,candidate,review,fuzzy candidate: イベントの企画・運営
+69,D008,スポーツ,D005,スポーツ,商品企画,JT0461,商品企画開発（チェーンストア）,0.5,スポーツ用品や健康商品の開発に関われるため,surprise,mapped,candidate,review,商品企画 is broad; candidate: 商品企画開発（チェーンストア）
+70,D008,スポーツ,D005,スポーツ,データアナリスト,JT0323,データサイエンティスト,0.5,競技データや健康データの分析に関われるため,surprise,mapped,mapped,ready,データアナリスト -> データサイエンティスト
+71,D008,スポーツ,D005,スポーツ,管理栄養士,JT0171,栄養士,0.6,食事面からパフォーマンスや健康を支えるため,classic,mapped,mapped,ready,管理栄養士 -> 栄養士
+72,D009,観光・地域文化,,,旅行企画,,,1.0,旅の体験や行き先を設計するため,classic,needs_new_tag,not_found,review,
+73,D009,観光・地域文化,,,ホテルスタッフ,JT0052,ホテル・旅館支配人,0.8,滞在体験や観光客対応に関わるため,classic,needs_new_tag,candidate,review,ホテルスタッフ is broad; candidate: ホテル・旅館支配人
+74,D009,観光・地域文化,,,観光協会職員,,,0.9,地域の観光資源の発信や活用に関わるため,classic,needs_new_tag,not_found,review,
+75,D009,観光・地域文化,,,地域活性化コーディネーター,JT0407,治験コーディネーター,0.8,地域文化や資源を活かす仕事に関わるため,classic,needs_new_tag,candidate,review,fuzzy candidate: 治験コーディネーター
+76,D009,観光・地域文化,,,文化財保存担当,,,0.7,地域の歴史や文化を守るため,classic,needs_new_tag,not_found,review,
+77,D009,観光・地域文化,,,体験プログラム企画,,,0.8,観光客が地域を深く楽しむ仕組みを作るため,classic,needs_new_tag,not_found,review,
+78,D009,観光・地域文化,,,映像クリエイター,,,0.5,地域の魅力を映像で伝えられるため,surprise,needs_new_tag,not_found,review,
+79,D009,観光・地域文化,,,インバウンドマーケター,,,0.7,海外の人に地域の魅力を届けるため,surprise,needs_new_tag,not_found,review,
+80,D009,観光・地域文化,,,交通企画,,,0.5,観光地への移動や回遊性に関われるため,surprise,needs_new_tag,not_found,review,
+81,D009,観光・地域文化,,,地域商社,,,0.6,地域産品や文化を事業につなげるため,surprise,needs_new_tag,not_found,review,
+82,D010,国際・多文化,,,国際協力職員,JT0513,国際協力専門家,1.0,海外の社会課題や支援活動に関わるため,classic,needs_new_tag,candidate,review,fuzzy candidate: 国際協力専門家
+83,D010,国際・多文化,,,外交官,JT0150,外務公務員（外交官）,0.9,国と国の関係づくりに関わるため,classic,needs_new_tag,candidate,review,substring candidate: 外務公務員（外交官）
+84,D010,国際・多文化,,,通訳・翻訳者,JT0087,翻訳者,0.8,言語を通じて多文化間の橋渡しをするため,classic,needs_new_tag,candidate,review,substring candidate: 翻訳者
+85,D010,国際・多文化,,,海外営業,,,0.8,国を越えたビジネスに関わるため,classic,needs_new_tag,not_found,review,
+86,D010,国際・多文化,,,日本語教師,JT0397,日本語教師,0.7,外国人の学びや生活を支えるため,classic,needs_new_tag,exact,review,
+87,D010,国際・多文化,,,多文化共生コーディネーター,JT0407,治験コーディネーター,0.8,地域で暮らす外国人との共生に関わるため,classic,needs_new_tag,candidate,review,fuzzy candidate: 治験コーディネーター
+88,D010,国際・多文化,,,人事,,,0.5,グローバル人材や多様な職場づくりに関われるため,surprise,needs_new_tag,needs_review,review,multiple candidates: 人事コンサルタント / 人事事務 / 人事課長
+89,D010,国際・多文化,,,旅行企画,,,0.5,異文化体験や国際交流につながる旅を作れるため,surprise,needs_new_tag,not_found,review,
+90,D010,国際・多文化,,,法務,JT0089,弁護士,0.4,国際取引や在留制度などのルールに関われるため,surprise,needs_new_tag,candidate,review,法務 is broad; candidate: 弁護士
+91,D010,国際・多文化,,,広報・PR,JT0444,広報・PR担当,0.5,国や文化を越えた発信に関われるため,surprise,needs_new_tag,candidate,review,substring candidate: 広報・PR担当
+92,D011,金融,,,銀行員,JT0438,銀行等窓口事務,1.0,お金の流れや融資を通じて社会を支えるため,classic,needs_new_tag,candidate,review,銀行員 is broad; candidate: 銀行等窓口事務
+93,D011,金融,,,証券アナリスト,JT0457,証券アナリスト,0.9,投資や企業価値の分析に関わるため,classic,needs_new_tag,exact,review,
+94,D011,金融,,,保険営業,JT0453,保険営業（生命保険、損害保険）,0.8,生活や事業のリスクに備える支援をするため,classic,needs_new_tag,candidate,review,substring candidate: 保険営業（生命保険、損害保険）
+95,D011,金融,,,ファイナンシャルプランナー,JT0082,ファイナンシャル・プランナー,0.8,家計や将来設計をお金の面から支えるため,classic,needs_new_tag,mapped,review,ファイナンシャルプランナー -> ファイナンシャル・プランナー
+96,D011,金融,,,経理・財務,JT0430,経理事務,0.8,企業のお金の管理や意思決定に関わるため,classic,needs_new_tag,mapped,review,経理・財務 -> 経理事務
+97,D011,金融,,,ベンチャーキャピタル,,,0.7,スタートアップへの投資や成長支援に関われるため,surprise,needs_new_tag,not_found,review,
+98,D011,金融,,,地域金融職員,,,0.7,地域企業や暮らしを資金面で支えるため,classic,needs_new_tag,not_found,review,
+99,D011,金融,,,フィンテック企画,,,0.6,金融サービスを技術で便利にするため,surprise,needs_new_tag,not_found,review,
+100,D011,金融,,,データアナリスト,JT0323,データサイエンティスト,0.5,金融データからリスクや市場を分析できるため,surprise,needs_new_tag,mapped,review,データアナリスト -> データサイエンティスト
+101,D011,金融,,,NPO職員,JT0522,NPO法人職員（企画・運営）,0.4,金融教育や生活困窮支援に関わる道があるため,surprise,needs_new_tag,mapped,review,NPO職員 -> NPO法人職員（企画・運営）
+102,D012,ものづくり,,,製品開発,,,1.0,新しい製品や機能を形にするため,classic,needs_new_tag,not_found,review,
+103,D012,ものづくり,,,機械設計,JT0262,機械設計技術者,0.9,機械や装置の構造を設計するため,classic,needs_new_tag,mapped,review,機械設計 -> 機械設計技術者
+104,D012,ものづくり,,,生産技術,JT0508,畜産技術者,0.9,製造ラインや作り方の改善に関わるため,classic,needs_new_tag,candidate,review,fuzzy candidate: 畜産技術者
+105,D012,ものづくり,,,品質管理,JT0296,生産・品質管理技術者,0.8,安全で安定したものづくりを支えるため,classic,needs_new_tag,candidate,review,substring candidate: 生産・品質管理技術者
+106,D012,ものづくり,,,研究開発,JT0247,植物工場の研究開発,0.8,素材や技術の新しい可能性を探るため,classic,needs_new_tag,candidate,review,substring candidate: 植物工場の研究開発
+107,D012,ものづくり,,,職人,,,0.7,手仕事や技術で製品を作るため,classic,needs_new_tag,needs_review,review,multiple candidates: 豆腐製造、豆腐職人 / パン製造、パン職人 / 和菓子製造、和菓子職人 / すし職人
+108,D012,ものづくり,,,プロダクトデザイナー,JT0347,ブックデザイナー,0.7,使いやすさや見た目を含めて製品を考えるため,surprise,needs_new_tag,candidate,review,fuzzy candidate: ブックデザイナー
+109,D012,ものづくり,,,調達・購買,,,0.5,材料や部品の選定を通じて製造を支えるため,surprise,needs_new_tag,not_found,review,
+110,D012,ものづくり,,,サステナビリティ推進担当,,,0.4,環境に配慮した製造に関われるため,surprise,needs_new_tag,not_found,review,
+111,D012,ものづくり,,,工場のDX推進,,,0.6,製造現場をデジタルで改善するため,surprise,needs_new_tag,not_found,review,
+112,D013,ファッション・美容,D009,ファッション・美容,ファッションデザイナー,JT0340,ファッションデザイナー,1.0,服やスタイルの企画制作に関わるため,classic,mapped,exact,ready,
+113,D013,ファッション・美容,D009,ファッション・美容,アパレル販売,,,0.8,服やブランドを顧客に届けるため,classic,mapped,not_found,review,
+114,D013,ファッション・美容,D009,ファッション・美容,化粧品企画,JT0298,化粧品製造,0.9,美容商品やブランド作りに関わるため,classic,mapped,candidate,review,fuzzy candidate: 化粧品製造
+115,D013,ファッション・美容,D009,ファッション・美容,美容師,JT0116,美容師,0.8,髪型や見た目の表現を支えるため,classic,mapped,exact,ready,
+116,D013,ファッション・美容,D009,ファッション・美容,スタイリスト,JT0346,スタイリスト,0.8,服や小物で印象や世界観を作るため,classic,mapped,exact,ready,
+117,D013,ファッション・美容,D009,ファッション・美容,ブランドマネージャー,JT0470,ファンドマネージャー,0.7,ブランドの価値や見せ方を育てるため,classic,mapped,candidate,review,fuzzy candidate: ファンドマネージャー
+118,D013,ファッション・美容,D009,ファッション・美容,SNS運用担当,,,0.5,ファッションや美容の魅力を発信できるため,surprise,mapped,not_found,review,
+119,D013,ファッション・美容,D009,ファッション・美容,商品バイヤー,,,0.6,流行や顧客ニーズを見て商品を選ぶため,surprise,mapped,not_found,review,
+120,D013,ファッション・美容,D009,ファッション・美容,素材開発,,,0.5,肌触りや機能性のある素材作りに関われるため,surprise,mapped,not_found,review,
+121,D013,ファッション・美容,D009,ファッション・美容,イベント企画,JT0566,イベントの企画・運営,0.4,ショーや展示でブランド体験を作れるため,surprise,mapped,candidate,review,fuzzy candidate: イベントの企画・運営
+122,D014,ゲーム・アニメ・音楽,D001,笑い・エンタメ,ゲームプランナー,JT0330,ゲームクリエーター,1.0,ゲームの仕組みや体験を考えるため,classic,mapped,mapped,ready,ゲームプランナー -> ゲームクリエーター
+123,D014,ゲーム・アニメ・音楽,D001,笑い・エンタメ,ゲームエンジニア,JT0330,ゲームクリエーター,0.9,ゲームを動かす開発に関わるため,classic,mapped,mapped,ready,ゲームエンジニア -> ゲームクリエーター
+124,D014,ゲーム・アニメ・音楽,D001,笑い・エンタメ,アニメーター,JT0343,アニメーター,0.9,アニメ表現の制作に関わるため,classic,mapped,exact,ready,
+125,D014,ゲーム・アニメ・音楽,D001,笑い・エンタメ,イベント企画,JT0566,イベントの企画・運営,0.8,ライブやファンイベントの場作りに関わるため,classic,mapped,candidate,review,fuzzy candidate: イベントの企画・運営
+126,D014,ゲーム・アニメ・音楽,D001,笑い・エンタメ,音楽制作,,,0.8,楽曲や音の体験作りに関わるため,classic,mapped,not_found,review,
+127,D014,ゲーム・アニメ・音楽,D001,笑い・エンタメ,IPビジネス企画,,,0.7,キャラクターや作品の展開に関われるため,classic,mapped,not_found,review,
+128,D014,ゲーム・アニメ・音楽,D001,笑い・エンタメ,広報・PR,JT0444,広報・PR担当,0.6,作品やイベントを多くの人に届けるため,surprise,mapped,candidate,review,substring candidate: 広報・PR担当
+129,D014,ゲーム・アニメ・音楽,D001,笑い・エンタメ,データアナリスト,JT0323,データサイエンティスト,0.5,視聴やプレイデータから改善に関われるため,surprise,mapped,mapped,ready,データアナリスト -> データサイエンティスト
+130,D014,ゲーム・アニメ・音楽,D001,笑い・エンタメ,グッズ企画,,,0.6,作品世界を商品として広げられるため,surprise,mapped,not_found,review,
+131,D014,ゲーム・アニメ・音楽,D001,笑い・エンタメ,コミュニティマネージャー,,,0.5,ファンとの関係づくりに関われるため,surprise,mapped,not_found,review,
+132,D015,社会課題・公共,,,行政職員,JT0138,国家公務員（行政事務）,1.0,政策や公共サービスを通じて社会課題に関わるため,classic,needs_new_tag,candidate,review,行政職員 is broad; candidate: 国家公務員（行政事務）
+133,D015,社会課題・公共,,,NPO職員,JT0522,NPO法人職員（企画・運営）,0.9,貧困や孤独など具体的な課題支援に関わるため,classic,needs_new_tag,mapped,review,NPO職員 -> NPO法人職員（企画・運営）
+134,D015,社会課題・公共,,,政策立案スタッフ,,,0.9,制度やルール作りから社会を変えるため,classic,needs_new_tag,not_found,review,
+135,D015,社会課題・公共,,,ソーシャルワーカー,,,0.8,困りごとを抱える人の生活を支えるため,classic,needs_new_tag,needs_review,review,multiple candidates: 医療ソーシャルワーカー / 福祉ソーシャルワーカー
+136,D015,社会課題・公共,,,防災担当,,,0.8,災害に備える地域や仕組み作りに関わるため,classic,needs_new_tag,not_found,review,
+137,D015,社会課題・公共,,,社会起業家,,,0.7,社会課題を事業として解決する道があるため,surprise,needs_new_tag,not_found,review,
+138,D015,社会課題・公共,,,広報・PR,JT0444,広報・PR担当,0.5,社会課題への理解や参加を広げられるため,surprise,needs_new_tag,candidate,review,substring candidate: 広報・PR担当
+139,D015,社会課題・公共,,,リサーチャー,JT0456,マーケティング・リサーチャー,0.6,社会課題の実態を調べて政策や事業に活かせるため,surprise,needs_new_tag,candidate,review,substring candidate: マーケティング・リサーチャー
+140,D015,社会課題・公共,,,法務,JT0089,弁護士,0.5,人権や制度に関わる課題解決を支えられるため,surprise,needs_new_tag,candidate,review,法務 is broad; candidate: 弁護士
+141,D015,社会課題・公共,,,UXデザイナー,JT0552,UX/UIデザイナー,0.4,公共サービスを使いやすくする仕事に関われるため,surprise,needs_new_tag,mapped,review,UXデザイナー -> UX/UIデザイナー
+142,D016,子ども・若者,,,保育士,JT0131,保育士,1.0,子どもの育ちや生活に直接関わるため,classic,needs_new_tag,exact,review,
+143,D016,子ども・若者,,,児童福祉司,JT0129,児童相談所相談員,0.9,困難を抱える子どもや家庭を支えるため,classic,needs_new_tag,mapped,review,児童福祉司 -> 児童相談所相談員
+144,D016,子ども・若者,,,学校教員,JT0180,中学校教員,0.8,子どもや若者の学びと成長に関わるため,classic,needs_new_tag,candidate,review,学校教員 is broad; candidate: 中学校教員
+145,D016,子ども・若者,,,スクールカウンセラー,JT0412,スクールカウンセラー,0.8,子どもや若者の心の支援に関わるため,classic,needs_new_tag,exact,review,
+146,D016,子ども・若者,,,若者支援NPO職員,,,0.8,居場所や相談支援に関わるため,classic,needs_new_tag,not_found,review,
+147,D016,子ども・若者,,,子育て支援施設スタッフ,,,0.7,親子の暮らしや地域のつながりを支えるため,classic,needs_new_tag,not_found,review,
+148,D016,子ども・若者,,,教材企画,,,0.5,子どもの学びを支える商品やサービスに関われるため,surprise,needs_new_tag,not_found,review,
+149,D016,子ども・若者,,,ゲームプランナー,JT0330,ゲームクリエーター,0.4,子ども向けの遊びや学びの体験を作れるため,surprise,needs_new_tag,mapped,review,ゲームプランナー -> ゲームクリエーター
+150,D016,子ども・若者,,,行政職員,JT0138,国家公務員（行政事務）,0.6,子ども政策や子育て支援制度に関われるため,surprise,needs_new_tag,candidate,review,行政職員 is broad; candidate: 国家公務員（行政事務）
+151,D016,子ども・若者,,,小児医療スタッフ,,,0.6,子どもの健康や発達を支えるため,classic,needs_new_tag,not_found,review,
+152,D017,高齢者・介護,D010,医療・福祉,介護職,JT0134,施設介護員,1.0,高齢者の日常生活を直接支えるため,classic,mapped,mapped,ready,介護職 -> 施設介護員
+153,D017,高齢者・介護,D010,医療・福祉,ケアマネジャー,JT0132,介護支援専門員/ケアマネジャー,0.9,介護サービスの計画や調整に関わるため,classic,mapped,mapped,ready,ケアマネジャー -> 介護支援専門員/ケアマネジャー
+154,D017,高齢者・介護,D010,医療・福祉,理学療法士,JT0167,理学療法士（PT）,0.8,身体機能の維持や回復を支えるため,classic,mapped,mapped,ready,理学療法士 -> 理学療法士（PT）
+155,D017,高齢者・介護,D010,医療・福祉,社会福祉士,,,0.8,福祉制度や生活相談を通じて支援するため,classic,mapped,not_found,review,
+156,D017,高齢者・介護,D010,医療・福祉,地域包括支援センター職員,,,0.8,地域で暮らす高齢者を支えるため,classic,mapped,not_found,review,
+157,D017,高齢者・介護,D010,医療・福祉,福祉用具専門相談員,JT0137,福祉用具専門相談員,0.7,暮らしやすい道具選びを支えるため,classic,mapped,exact,ready,
+158,D017,高齢者・介護,D010,医療・福祉,ヘルスケアアプリ企画,,,0.5,高齢者の見守りや健康管理に関われるため,surprise,mapped,not_found,review,
+159,D017,高齢者・介護,D010,医療・福祉,住宅設計,,,0.5,バリアフリーな住まい作りに関われるため,surprise,mapped,not_found,review,
+160,D017,高齢者・介護,D010,医療・福祉,コミュニティマネージャー,,,0.4,高齢者の孤立防止や交流作りに関われるため,surprise,mapped,not_found,review,
+161,D017,高齢者・介護,D010,医療・福祉,行政職員,JT0138,国家公務員（行政事務）,0.6,高齢者福祉や介護政策に関われるため,surprise,mapped,candidate,review,行政職員 is broad; candidate: 国家公務員（行政事務）
+162,D018,住まい・暮らし,,,住宅設計,,,1.0,住まいの空間や暮らしやすさを形にするため,classic,needs_new_tag,not_found,review,
+163,D018,住まい・暮らし,,,インテリアコーディネーター,JT0338,インテリアコーディネーター,0.9,家具や内装で暮らしの質を高めるため,classic,needs_new_tag,exact,review,
+164,D018,住まい・暮らし,,,不動産仲介,,,0.8,住む場所選びや暮らしの入口に関わるため,classic,needs_new_tag,not_found,review,
+165,D018,住まい・暮らし,,,住宅設備企画,,,0.7,キッチンや浴室など生活機能を作るため,classic,needs_new_tag,not_found,review,
+166,D018,住まい・暮らし,,,家電メーカー商品企画,,,0.7,日々の暮らしを便利にする製品に関わるため,classic,needs_new_tag,not_found,review,
+167,D018,住まい・暮らし,,,整理収納アドバイザー,,,0.6,暮らしやすい生活空間作りを支えるため,surprise,needs_new_tag,not_found,review,
+168,D018,住まい・暮らし,,,生活サービス企画,,,0.6,家事や暮らしの困りごとを解決するため,surprise,needs_new_tag,not_found,review,
+169,D018,住まい・暮らし,,,UXデザイナー,JT0552,UX/UIデザイナー,0.5,暮らしに関わるアプリやサービスを設計できるため,surprise,needs_new_tag,mapped,review,UXデザイナー -> UX/UIデザイナー
+170,D018,住まい・暮らし,,,福祉住環境コーディネーター,JT0407,治験コーディネーター,0.6,高齢者や障害者の住みやすさに関われるため,surprise,needs_new_tag,candidate,review,fuzzy candidate: 治験コーディネーター
+171,D018,住まい・暮らし,,,販売員,JT0054,デパート店員,0.4,家具や生活用品を通じて暮らしを提案できるため,surprise,needs_new_tag,candidate,review,販売員 is broad; candidate: デパート店員
+172,D019,交通・物流,,,物流企画,,,1.0,物の流れや配送の仕組み作りに関わるため,classic,needs_new_tag,not_found,review,
+173,D019,交通・物流,,,交通計画,,,0.9,人の移動や公共交通の改善に関わるため,classic,needs_new_tag,not_found,review,
+174,D019,交通・物流,,,鉄道会社企画職,,,0.8,鉄道や駅を通じた移動体験に関わるため,classic,needs_new_tag,not_found,review,
+175,D019,交通・物流,,,航空会社総合職,,,0.7,空の移動や輸送サービスに関わるため,classic,needs_new_tag,not_found,review,
+176,D019,交通・物流,,,倉庫管理,,,0.7,物流拠点の運営や効率化に関わるため,classic,needs_new_tag,not_found,review,
+177,D019,交通・物流,,,モビリティサービス企画,,,0.8,新しい移動手段やサービスを作るため,surprise,needs_new_tag,not_found,review,
+178,D019,交通・物流,,,データアナリスト,JT0323,データサイエンティスト,0.6,配送や交通データを分析して改善に活かせるため,surprise,needs_new_tag,mapped,review,データアナリスト -> データサイエンティスト
+179,D019,交通・物流,,,EC運営,,,0.5,通販と配送体験の設計に関われるため,surprise,needs_new_tag,not_found,review,
+180,D019,交通・物流,,,自動運転開発,JT0528,自動運転開発エンジニア（自動車）,0.6,未来の移動や物流の技術に関われるため,surprise,needs_new_tag,candidate,review,substring candidate: 自動運転開発エンジニア（自動車）
+181,D019,交通・物流,,,サプライチェーンマネージャー,,,0.8,調達から配送までの流れを設計するため,classic,needs_new_tag,not_found,review,
+182,D020,法律・制度,,,弁護士,JT0089,弁護士,1.0,法律を使って権利や課題解決に関わるため,classic,needs_new_tag,exact,review,
+183,D020,法律・制度,,,法務,JT0089,弁護士,0.9,企業活動のルールや契約を支えるため,classic,needs_new_tag,candidate,review,法務 is broad; candidate: 弁護士
+184,D020,法律・制度,,,知的財産担当,,,0.8,発明やブランドなどの権利を守るため,classic,needs_new_tag,not_found,review,
+185,D020,法律・制度,,,司法書士,JT0084,司法書士,0.8,登記や法的手続きを支えるため,classic,needs_new_tag,exact,review,
+186,D020,法律・制度,,,行政書士,JT0085,行政書士,0.7,許認可や書類手続きで人や企業を支えるため,classic,needs_new_tag,exact,review,
+187,D020,法律・制度,,,コンプライアンス担当,JT0447,コンプライアンス推進担当,0.8,組織がルールを守る仕組みを作るため,classic,needs_new_tag,candidate,review,fuzzy candidate: コンプライアンス推進担当
+188,D020,法律・制度,,,政策立案スタッフ,,,0.6,社会の制度やルール設計に関われるため,surprise,needs_new_tag,not_found,review,
+189,D020,法律・制度,,,人権NPO職員,,,0.6,法律や制度を通じた支援に関われるため,surprise,needs_new_tag,not_found,review,
+190,D020,法律・制度,,,情報セキュリティ担当,,,0.4,個人情報やデータ利用のルールに関われるため,surprise,needs_new_tag,not_found,review,
+191,D020,法律・制度,,,編集者,,,0.3,法律情報をわかりやすく伝える仕事に関われるため,surprise,needs_new_tag,needs_review,review,multiple candidates: 図書編集者 / 雑誌編集者 / 映像編集者
+192,D021,動物・ペット,,,獣医師,JT0223,獣医師,1.0,動物の診療や健康管理に直接関わるため,classic,needs_new_tag,exact,review,
+193,D021,動物・ペット,,,動物看護師,,,0.9,動物医療の現場でケアに関わるため,classic,needs_new_tag,needs_review,review,multiple candidates: 看護師 / 動物看護
+194,D021,動物・ペット,,,ペット用品企画,,,0.8,動物との暮らしを支える商品を作るため,classic,needs_new_tag,not_found,review,
+195,D021,動物・ペット,,,トリマー,JT0227,トリマー,0.8,ペットのケアや健康管理に関わるため,classic,needs_new_tag,exact,review,
+196,D021,動物・ペット,,,動物園飼育員,JT0220,動物園飼育員,0.8,動物の飼育や保全に関わるため,classic,needs_new_tag,exact,review,
+197,D021,動物・ペット,,,保護団体職員,,,0.7,保護活動や譲渡支援に関わるため,classic,needs_new_tag,not_found,review,
+198,D021,動物・ペット,,,畜産職,,,0.7,家畜の生産や飼育管理に関わるため,classic,needs_new_tag,not_found,review,
+199,D021,動物・ペット,,,商品マーケター,,,0.5,ペット市場や飼い主のニーズを商品に活かせるため,surprise,needs_new_tag,not_found,review,
+200,D021,動物・ペット,,,行政職員,JT0138,国家公務員（行政事務）,0.4,動物愛護や衛生に関わる制度運用に関われるため,surprise,needs_new_tag,candidate,review,行政職員 is broad; candidate: 国家公務員（行政事務）
+201,D021,動物・ペット,,,研究職,,,0.5,動物の行動や健康に関する研究に関われるため,surprise,needs_new_tag,not_found,review,
+202,D022,科学・宇宙,,,研究者,,,1.0,科学的な問いを深く探究するため,classic,needs_new_tag,needs_review,review,multiple candidates: 土木・建築工学研究者 / 情報工学研究者 / 医学研究者 / 薬学研究者 / バイオテクノロジー研究者
+203,D022,科学・宇宙,,,宇宙開発エンジニア,JT0213,録音エンジニア,1.0,ロケットや衛星など宇宙技術に関わるため,classic,needs_new_tag,candidate,review,fuzzy candidate: 録音エンジニア
+204,D022,科学・宇宙,,,データサイエンティスト,JT0323,データサイエンティスト,0.8,観測や実験データの分析に関われるため,classic,needs_new_tag,exact,review,
+205,D022,科学・宇宙,,,大学教員,JT0184,大学・短期大学教員,0.8,研究と教育の両方に関わるため,classic,needs_new_tag,candidate,review,substring candidate: 大学・短期大学教員
+206,D022,科学・宇宙,,,実験技術者,JT0288,食品技術者,0.7,研究現場の実験や測定を支えるため,classic,needs_new_tag,candidate,review,fuzzy candidate: 食品技術者
+207,D022,科学・宇宙,,,科学館スタッフ,JT0218,厩舎スタッフ,0.7,科学の面白さを一般の人に届けるため,surprise,needs_new_tag,candidate,review,fuzzy candidate: 厩舎スタッフ
+208,D022,科学・宇宙,,,科学コミュニケーター,,,0.7,専門的な科学をわかりやすく伝えるため,surprise,needs_new_tag,not_found,review,
+209,D022,科学・宇宙,,,技術広報,,,0.5,研究や技術の価値を社会に伝えるため,surprise,needs_new_tag,not_found,review,
+210,D022,科学・宇宙,,,宇宙ビジネス企画,,,0.6,衛星データや宇宙技術の活用に関われるため,surprise,needs_new_tag,not_found,review,
+211,D022,科学・宇宙,,,理科教材企画,,,0.5,科学への興味を育てる教材作りに関われるため,surprise,needs_new_tag,not_found,review,

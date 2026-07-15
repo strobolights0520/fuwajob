@@ -1,0 +1,22 @@
+[
+  {
+    "action_id": "SA000001",
+    "job_id": "JT0326",
+    "job_name": "Webデザイナー（Web制作会社）",
+    "category": "production",
+    "action_text": "身近なWebサイトを1ページだけ作って人に見てもらう",
+    "priority": "10",
+    "source": "manual",
+    "memo": ""
+  },
+  {
+    "action_id": "SA000002",
+    "job_id": "JT0020",
+    "job_name": "建築設計技術者",
+    "category": "research",
+    "action_text": "駅前や商店街の使われ方を観察して改善案を描く",
+    "priority": "10",
+    "source": "manual",
+    "memo": ""
+  }
+]

@@ -1,0 +1,4 @@
+tag_id,axis,label,description,is_active,owner,memo
+A001,action,企画する,企画・構想・プロデュースしたい,TRUE,,
+D001,domain,笑い・エンタメ,お笑い・番組・ライブ・配信など,TRUE,,
+S001,style,表に立つ,出演・発信など自分が前面に出る,TRUE,,

@@ -1,0 +1,57 @@
+[
+  {
+    "source_tag_id": "D009",
+    "source_tag_label": "観光・地域文化",
+    "suggested_action": "新しいタグとして追加するか、既存タグへ統合するか確認"
+  },
+  {
+    "source_tag_id": "D010",
+    "source_tag_label": "国際・多文化",
+    "suggested_action": "新しいタグとして追加するか、既存タグへ統合するか確認"
+  },
+  {
+    "source_tag_id": "D011",
+    "source_tag_label": "金融",
+    "suggested_action": "新しいタグとして追加するか、既存タグへ統合するか確認"
+  },
+  {
+    "source_tag_id": "D012",
+    "source_tag_label": "ものづくり",
+    "suggested_action": "新しいタグとして追加するか、既存タグへ統合するか確認"
+  },
+  {
+    "source_tag_id": "D015",
+    "source_tag_label": "社会課題・公共",
+    "suggested_action": "新しいタグとして追加するか、既存タグへ統合するか確認"
+  },
+  {
+    "source_tag_id": "D016",
+    "source_tag_label": "子ども・若者",
+    "suggested_action": "新しいタグとして追加するか、既存タグへ統合するか確認"
+  },
+  {
+    "source_tag_id": "D018",
+    "source_tag_label": "住まい・暮らし",
+    "suggested_action": "新しいタグとして追加するか、既存タグへ統合するか確認"
+  },
+  {
+    "source_tag_id": "D019",
+    "source_tag_label": "交通・物流",
+    "suggested_action": "新しいタグとして追加するか、既存タグへ統合するか確認"
+  },
+  {
+    "source_tag_id": "D020",
+    "source_tag_label": "法律・制度",
+    "suggested_action": "新しいタグとして追加するか、既存タグへ統合するか確認"
+  },
+  {
+    "source_tag_id": "D021",
+    "source_tag_label": "動物・ペット",
+    "suggested_action": "新しいタグとして追加するか、既存タグへ統合するか確認"
+  },
+  {
+    "source_tag_id": "D022",
+    "source_tag_label": "科学・宇宙",
+    "suggested_action": "新しいタグとして追加するか、既存タグへ統合するか確認"
+  }
+]

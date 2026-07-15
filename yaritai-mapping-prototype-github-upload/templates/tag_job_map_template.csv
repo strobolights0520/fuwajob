@@ -1,0 +1,3 @@
+tag_id,job_id,job_name,weight,source,review_status,reviewed_by,notes
+A001,JT0001,,0.80,manual,draft,,
+D001,JT0001,,0.90,manual,draft,,

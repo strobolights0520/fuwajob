@@ -1,0 +1,200 @@
+[
+  {
+    "tag_id": "A001",
+    "axis": "action",
+    "label": "企画する",
+    "description": "企画・構想・プロデュースしたい",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "A002",
+    "axis": "action",
+    "label": "作る・制作する",
+    "description": "制作・開発・デザインしたい",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "A003",
+    "axis": "action",
+    "label": "演じる・表現する",
+    "description": "出演・演技・表現など、自分の表現を前に出したい",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "A004",
+    "axis": "action",
+    "label": "支える・サポートする",
+    "description": "支援・伴走・調整など、誰かの活動を支えたい",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "A005",
+    "axis": "action",
+    "label": "売る・広める",
+    "description": "宣伝・PR・販売・流通など、価値を人に届けたい",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "A006",
+    "axis": "action",
+    "label": "分析する",
+    "description": "調査・研究・データ分析など、物事を深く理解したい",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "A007",
+    "axis": "action",
+    "label": "教える・育てる",
+    "description": "教育・育成・伝達など、人の学びや成長に関わりたい",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "A008",
+    "axis": "action",
+    "label": "運営する・仕切る",
+    "description": "運営・進行・マネジメントなど、場や仕組みを動かしたい",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "D001",
+    "axis": "domain",
+    "label": "笑い・エンタメ",
+    "description": "お笑い、番組、ライブ、配信、ゲーム、アニメなど",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "D002",
+    "axis": "domain",
+    "label": "映像・放送",
+    "description": "映像、放送、映画、動画、メディア制作など",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "D003",
+    "axis": "domain",
+    "label": "都市・まちづくり",
+    "description": "都市開発、地域、公共空間、建築、交通など",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "D004",
+    "axis": "domain",
+    "label": "食",
+    "description": "食、料理、飲食、食品、食体験など",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "D005",
+    "axis": "domain",
+    "label": "スポーツ",
+    "description": "スポーツ、試合、チーム、身体づくりなど",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "D006",
+    "axis": "domain",
+    "label": "教育・学び",
+    "description": "学校、塾、教材、学習支援、生涯学習など",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "D007",
+    "axis": "domain",
+    "label": "テクノロジー",
+    "description": "IT、AI、アプリ、データ、セキュリティなど",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "D008",
+    "axis": "domain",
+    "label": "環境・サステナビリティ",
+    "description": "環境、自然、気候、資源循環、サステナビリティなど",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "D009",
+    "axis": "domain",
+    "label": "ファッション・美容",
+    "description": "服、美容、コスメ、スタイリング、ブランドなど",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "D010",
+    "axis": "domain",
+    "label": "医療・福祉",
+    "description": "医療、福祉、健康、介護、リハビリなど",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "S001",
+    "axis": "style",
+    "label": "表に立つ",
+    "description": "出演・発信など、自分が前面に出る",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "S002",
+    "axis": "style",
+    "label": "裏方",
+    "description": "支える・調整する・縁の下で関わる",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "S003",
+    "axis": "style",
+    "label": "大勢に届ける",
+    "description": "多くの人、社会、全国規模に届ける",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  },
+  {
+    "tag_id": "S004",
+    "axis": "style",
+    "label": "少人数に深く",
+    "description": "身近な人や少人数に深く関わる",
+    "is_active": "TRUE",
+    "owner": "",
+    "memo": "prototype canonical tag"
+  }
+]

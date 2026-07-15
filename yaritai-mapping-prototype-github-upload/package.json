@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "build:jobtag-sqlite": "python3 scripts/build-jobtag-sqlite.py",
+    "import:jobtag": "node scripts/import-jobtag.mjs",
+    "start": "node server.mjs"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

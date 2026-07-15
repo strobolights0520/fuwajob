@@ -1,0 +1,2 @@
+action_id,job_id,job_name,category,action_text,priority,source,memo
+SA000001,JT0001,,production,短い動画や記事を作って公開する,10,manual,

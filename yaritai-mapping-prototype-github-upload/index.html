@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="学生のふわっとしたやりたいことから、業界・職種・必要スキルを提示するプロトタイプ"
+    />
+    <title>やりたいことマッピング</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar" aria-label="サービスヘッダー">
+        <div class="brand">
+          <span class="brand-dot" aria-hidden="true"></span>
+          <span>やりたいことマッピング</span>
+        </div>
+        <div class="status-pill" id="costStatus">保存 0件</div>
+      </header>
+
+      <main>
+        <section class="input-band" id="inputBand" aria-labelledby="inputTitle">
+          <div class="input-copy">
+            <p class="eyebrow">なんとなくでいい、「やってみたいこと」から</p>
+            <h1 id="inputTitle">その先にある仕事を<br />いくつか見せます</h1>
+          </div>
+          <form class="query-form" id="queryForm">
+            <label class="sr-only" for="queryInput">やってみたいこと</label>
+            <textarea
+              id="queryInput"
+              rows="1"
+              placeholder="やってみたいことを、ふわっとでいいので"
+              autocomplete="off"
+            ></textarea>
+            <p class="helper-text">氏名・連絡先など個人が特定できる情報は入力しないでください</p>
+            <div class="form-actions">
+              <button type="button" class="ghost-button" id="resetButton">リセット</button>
+              <button type="submit" class="primary-button">さがす</button>
+            </div>
+          </form>
+          <div class="example-row" id="exampleRow" aria-label="入力例"></div>
+        </section>
+
+        <section class="insight-strip" aria-label="処理状態">
+          <div>
+            <span class="metric-label">解釈ルート</span>
+            <strong id="routeLabel">未入力</strong>
+          </div>
+          <div>
+            <span class="metric-label">キャッシュ</span>
+            <strong id="cacheLabel">待機中</strong>
+          </div>
+          <div>
+            <span class="metric-label">抽出タグ</span>
+            <strong id="tagCountLabel">0件</strong>
+          </div>
+          <div>
+            <span class="metric-label">保存</span>
+            <strong id="bookmarkCountLabel">0件</strong>
+          </div>
+        </section>
+
+        <section class="chips-band hidden" id="chipsBand" aria-labelledby="chipsTitle">
+          <div>
+            <p class="eyebrow">もう少しだけ</p>
+            <h2 id="chipsTitle">どっちが近い?</h2>
+          </div>
+          <div class="chip-question" id="chipQuestion"></div>
+          <div class="chip-list" id="chipList"></div>
+        </section>
+
+        <section class="loading-state hidden" id="loadingState" aria-live="polite">
+          <div class="spinner" aria-hidden="true"></div>
+          <p>道をさがしています…</p>
+        </section>
+
+        <section class="results-band hidden" id="resultsBand" aria-labelledby="resultsTitle">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow" id="resultsEyebrow">結果</p>
+              <h2 id="resultsTitle">こんな道があります</h2>
+              <p>これが向いているという意味ではありません。視野を広げるための一覧です。</p>
+            </div>
+            <button type="button" class="ghost-button" id="shareButton">URLで共有</button>
+          </div>
+          <div class="tag-row" id="tagRow"></div>
+          <div class="result-columns">
+            <div>
+              <div class="group-heading">
+                <h3>王道の3つ</h3>
+                <span>入力に近い職種</span>
+              </div>
+              <div class="job-grid" id="classicJobs"></div>
+            </div>
+            <div>
+              <div class="group-heading">
+                <h3>意外な道の3つ</h3>
+                <span>同じ領域・違う関わり方</span>
+              </div>
+              <div class="job-grid" id="surpriseJobs"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="empty-state" id="emptyState">
+          <div class="map-visual" aria-hidden="true">
+            <span style="--x: 14%; --y: 42%">入力</span>
+            <span style="--x: 37%; --y: 20%">タグ</span>
+            <span style="--x: 59%; --y: 50%">職種</span>
+            <span style="--x: 81%; --y: 29%">経験</span>
+          </div>
+          <p>辞書マッチ優先で、まずはLLMなしのPhase 2として動く状態を再現しています。</p>
+        </section>
+      </main>
+    </div>
+
+    <aside class="detail-panel" id="detailPanel" aria-hidden="true" aria-labelledby="detailTitle">
+      <div class="panel-backdrop" id="panelBackdrop"></div>
+      <div class="panel-card" role="dialog" aria-modal="true">
+        <button type="button" class="icon-button" id="closePanel" aria-label="閉じる">×</button>
+        <p class="eyebrow" id="detailCategory">職種詳細</p>
+        <h2 id="detailTitle"></h2>
+        <p id="detailDescription"></p>
+        <div class="detail-section">
+          <h3>必要スキル</h3>
+          <div class="tag-row" id="detailSkills"></div>
+        </div>
+        <div class="detail-section">
+          <h3>今から積める経験</h3>
+          <ul id="detailActions"></ul>
+        </div>
+        <button type="button" class="primary-button full-width" id="bookmarkButton">保存する</button>
+      </div>
+    </aside>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

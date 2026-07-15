@@ -1,0 +1,40 @@
+{
+  "name": "yaritai-mapping-data",
+  "generated_at": "2026-07-15T03:42:40.040688+00:00",
+  "spreadsheet_title": "ふわっとやりたいこと",
+  "spreadsheet_id": "1wUY9-2O1hCwPn5yNx3KatCwmeuj9M5JKfd6kgS0FBT0",
+  "source": {
+    "job_reference": "厚生労働省 職業情報提供サイト（日本版O-NET）job tag ダウンロードデータ",
+    "jobtag_description_version": "7.01",
+    "jobtag_numeric_version": "7.00",
+    "prototype_tags": "yaritai-mapping-prototype/app.js",
+    "ai_review_input": "outputs/ai_tag_job_map_review.csv"
+  },
+  "counts": {
+    "tags": 22,
+    "tag_synonyms": 111,
+    "tag_job_map": 36,
+    "student_actions": 2,
+    "job_reference": 556,
+    "ai_tag_job_map_review": 210,
+    "ai_tag_job_map_ready": 34,
+    "ai_new_tag_candidates": 11
+  },
+  "status_policy": {
+    "tag_job_map.review_status": [
+      "draft",
+      "approved",
+      "rejected"
+    ],
+    "tag_job_map.source": [
+      "manual",
+      "rule",
+      "llm_draft"
+    ],
+    "route_type": [
+      "classic",
+      "surprise",
+      ""
+    ]
+  }
+}

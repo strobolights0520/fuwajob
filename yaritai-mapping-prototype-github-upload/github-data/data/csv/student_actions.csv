@@ -1,0 +1,3 @@
+action_id,job_id,job_name,category,action_text,priority,source,memo
+SA000001,JT0326,Webデザイナー（Web制作会社）,production,身近なWebサイトを1ページだけ作って人に見てもらう,10,manual,
+SA000002,JT0020,建築設計技術者,research,駅前や商店街の使われ方を観察して改善案を描く,10,manual,

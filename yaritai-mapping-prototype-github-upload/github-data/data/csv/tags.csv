@@ -1,0 +1,23 @@
+tag_id,axis,label,description,is_active,owner,memo
+A001,action,企画する,企画・構想・プロデュースしたい,TRUE,,prototype canonical tag
+A002,action,作る・制作する,制作・開発・デザインしたい,TRUE,,prototype canonical tag
+A003,action,演じる・表現する,出演・演技・表現など、自分の表現を前に出したい,TRUE,,prototype canonical tag
+A004,action,支える・サポートする,支援・伴走・調整など、誰かの活動を支えたい,TRUE,,prototype canonical tag
+A005,action,売る・広める,宣伝・PR・販売・流通など、価値を人に届けたい,TRUE,,prototype canonical tag
+A006,action,分析する,調査・研究・データ分析など、物事を深く理解したい,TRUE,,prototype canonical tag
+A007,action,教える・育てる,教育・育成・伝達など、人の学びや成長に関わりたい,TRUE,,prototype canonical tag
+A008,action,運営する・仕切る,運営・進行・マネジメントなど、場や仕組みを動かしたい,TRUE,,prototype canonical tag
+D001,domain,笑い・エンタメ,お笑い、番組、ライブ、配信、ゲーム、アニメなど,TRUE,,prototype canonical tag
+D002,domain,映像・放送,映像、放送、映画、動画、メディア制作など,TRUE,,prototype canonical tag
+D003,domain,都市・まちづくり,都市開発、地域、公共空間、建築、交通など,TRUE,,prototype canonical tag
+D004,domain,食,食、料理、飲食、食品、食体験など,TRUE,,prototype canonical tag
+D005,domain,スポーツ,スポーツ、試合、チーム、身体づくりなど,TRUE,,prototype canonical tag
+D006,domain,教育・学び,学校、塾、教材、学習支援、生涯学習など,TRUE,,prototype canonical tag
+D007,domain,テクノロジー,IT、AI、アプリ、データ、セキュリティなど,TRUE,,prototype canonical tag
+D008,domain,環境・サステナビリティ,環境、自然、気候、資源循環、サステナビリティなど,TRUE,,prototype canonical tag
+D009,domain,ファッション・美容,服、美容、コスメ、スタイリング、ブランドなど,TRUE,,prototype canonical tag
+D010,domain,医療・福祉,医療、福祉、健康、介護、リハビリなど,TRUE,,prototype canonical tag
+S001,style,表に立つ,出演・発信など、自分が前面に出る,TRUE,,prototype canonical tag
+S002,style,裏方,支える・調整する・縁の下で関わる,TRUE,,prototype canonical tag
+S003,style,大勢に届ける,多くの人、社会、全国規模に届ける,TRUE,,prototype canonical tag
+S004,style,少人数に深く,身近な人や少人数に深く関わる,TRUE,,prototype canonical tag

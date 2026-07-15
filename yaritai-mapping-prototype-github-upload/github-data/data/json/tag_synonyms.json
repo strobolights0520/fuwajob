@@ -1,0 +1,1001 @@
+[
+  {
+    "synonym_id": "SYN000001",
+    "tag_id": "A001",
+    "surface": "企画",
+    "normalized_surface": "企画",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000002",
+    "tag_id": "A001",
+    "surface": "考える",
+    "normalized_surface": "考える",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000003",
+    "tag_id": "A001",
+    "surface": "プロデュース",
+    "normalized_surface": "プロデュース",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000004",
+    "tag_id": "A001",
+    "surface": "立ち上げ",
+    "normalized_surface": "立ち上げ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000005",
+    "tag_id": "A001",
+    "surface": "プラン",
+    "normalized_surface": "プラン",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000006",
+    "tag_id": "A002",
+    "surface": "作り",
+    "normalized_surface": "作り",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000007",
+    "tag_id": "A002",
+    "surface": "つくり",
+    "normalized_surface": "つくり",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000008",
+    "tag_id": "A002",
+    "surface": "制作",
+    "normalized_surface": "制作",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000009",
+    "tag_id": "A002",
+    "surface": "開発",
+    "normalized_surface": "開発",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000010",
+    "tag_id": "A002",
+    "surface": "デザイン",
+    "normalized_surface": "デザイン",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000011",
+    "tag_id": "A002",
+    "surface": "番組を作",
+    "normalized_surface": "番組を作",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000012",
+    "tag_id": "A003",
+    "surface": "出演",
+    "normalized_surface": "出演",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000013",
+    "tag_id": "A003",
+    "surface": "演じ",
+    "normalized_surface": "演じ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000014",
+    "tag_id": "A003",
+    "surface": "表現",
+    "normalized_surface": "表現",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000015",
+    "tag_id": "A003",
+    "surface": "出たい",
+    "normalized_surface": "出たい",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000016",
+    "tag_id": "A003",
+    "surface": "舞台",
+    "normalized_surface": "舞台",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000017",
+    "tag_id": "A003",
+    "surface": "表に立",
+    "normalized_surface": "表に立",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000018",
+    "tag_id": "A004",
+    "surface": "支え",
+    "normalized_surface": "支え",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000019",
+    "tag_id": "A004",
+    "surface": "サポート",
+    "normalized_surface": "サポート",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000020",
+    "tag_id": "A004",
+    "surface": "裏方",
+    "normalized_surface": "裏方",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000021",
+    "tag_id": "A004",
+    "surface": "助け",
+    "normalized_surface": "助け",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000022",
+    "tag_id": "A004",
+    "surface": "伴走",
+    "normalized_surface": "伴走",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000023",
+    "tag_id": "A005",
+    "surface": "広め",
+    "normalized_surface": "広め",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000024",
+    "tag_id": "A005",
+    "surface": "売る",
+    "normalized_surface": "売る",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000025",
+    "tag_id": "A005",
+    "surface": "届け",
+    "normalized_surface": "届け",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000026",
+    "tag_id": "A005",
+    "surface": "宣伝",
+    "normalized_surface": "宣伝",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000027",
+    "tag_id": "A005",
+    "surface": "マーケ",
+    "normalized_surface": "マーケ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000028",
+    "tag_id": "A005",
+    "surface": "流行らせ",
+    "normalized_surface": "流行らせ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000029",
+    "tag_id": "A006",
+    "surface": "分析",
+    "normalized_surface": "分析",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000030",
+    "tag_id": "A006",
+    "surface": "調べ",
+    "normalized_surface": "調べ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000031",
+    "tag_id": "A006",
+    "surface": "研究",
+    "normalized_surface": "研究",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000032",
+    "tag_id": "A006",
+    "surface": "データ",
+    "normalized_surface": "データ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000033",
+    "tag_id": "A006",
+    "surface": "検証",
+    "normalized_surface": "検証",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000034",
+    "tag_id": "A007",
+    "surface": "教え",
+    "normalized_surface": "教え",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000035",
+    "tag_id": "A007",
+    "surface": "育て",
+    "normalized_surface": "育て",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000036",
+    "tag_id": "A007",
+    "surface": "教育",
+    "normalized_surface": "教育",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000037",
+    "tag_id": "A007",
+    "surface": "学び",
+    "normalized_surface": "学び",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000038",
+    "tag_id": "A007",
+    "surface": "伝え",
+    "normalized_surface": "伝え",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000039",
+    "tag_id": "A008",
+    "surface": "運営",
+    "normalized_surface": "運営",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000040",
+    "tag_id": "A008",
+    "surface": "仕切",
+    "normalized_surface": "仕切",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000041",
+    "tag_id": "A008",
+    "surface": "まとめ",
+    "normalized_surface": "まとめ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000042",
+    "tag_id": "A008",
+    "surface": "マネジメント",
+    "normalized_surface": "マネジメント",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000043",
+    "tag_id": "A008",
+    "surface": "進行",
+    "normalized_surface": "進行",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000044",
+    "tag_id": "D001",
+    "surface": "お笑い",
+    "normalized_surface": "お笑い",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000045",
+    "tag_id": "D001",
+    "surface": "笑い",
+    "normalized_surface": "笑い",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000046",
+    "tag_id": "D001",
+    "surface": "芸人",
+    "normalized_surface": "芸人",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000047",
+    "tag_id": "D001",
+    "surface": "バラエティ",
+    "normalized_surface": "バラエティ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000048",
+    "tag_id": "D001",
+    "surface": "エンタメ",
+    "normalized_surface": "エンタメ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000049",
+    "tag_id": "D002",
+    "surface": "番組",
+    "normalized_surface": "番組",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000050",
+    "tag_id": "D002",
+    "surface": "テレビ",
+    "normalized_surface": "テレビ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000051",
+    "tag_id": "D002",
+    "surface": "映像",
+    "normalized_surface": "映像",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000052",
+    "tag_id": "D002",
+    "surface": "放送",
+    "normalized_surface": "放送",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000053",
+    "tag_id": "D002",
+    "surface": "映画",
+    "normalized_surface": "映画",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000054",
+    "tag_id": "D002",
+    "surface": "動画",
+    "normalized_surface": "動画",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000055",
+    "tag_id": "D003",
+    "surface": "都市",
+    "normalized_surface": "都市",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000056",
+    "tag_id": "D003",
+    "surface": "まち",
+    "normalized_surface": "まち",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000057",
+    "tag_id": "D003",
+    "surface": "街",
+    "normalized_surface": "街",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000058",
+    "tag_id": "D003",
+    "surface": "地域",
+    "normalized_surface": "地域",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000059",
+    "tag_id": "D003",
+    "surface": "再開発",
+    "normalized_surface": "再開発",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000060",
+    "tag_id": "D003",
+    "surface": "建築",
+    "normalized_surface": "建築",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000061",
+    "tag_id": "D004",
+    "surface": "食",
+    "normalized_surface": "食",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000062",
+    "tag_id": "D004",
+    "surface": "料理",
+    "normalized_surface": "料理",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000063",
+    "tag_id": "D004",
+    "surface": "カフェ",
+    "normalized_surface": "カフェ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000064",
+    "tag_id": "D004",
+    "surface": "レストラン",
+    "normalized_surface": "レストラン",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000065",
+    "tag_id": "D004",
+    "surface": "食品",
+    "normalized_surface": "食品",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000066",
+    "tag_id": "D005",
+    "surface": "スポーツ",
+    "normalized_surface": "スポーツ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000067",
+    "tag_id": "D005",
+    "surface": "試合",
+    "normalized_surface": "試合",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000068",
+    "tag_id": "D005",
+    "surface": "チーム",
+    "normalized_surface": "チーム",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000069",
+    "tag_id": "D005",
+    "surface": "アスリート",
+    "normalized_surface": "アスリート",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000070",
+    "tag_id": "D006",
+    "surface": "教育",
+    "normalized_surface": "教育",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000071",
+    "tag_id": "D006",
+    "surface": "学校",
+    "normalized_surface": "学校",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000072",
+    "tag_id": "D006",
+    "surface": "塾",
+    "normalized_surface": "塾",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000073",
+    "tag_id": "D006",
+    "surface": "学び",
+    "normalized_surface": "学び",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000074",
+    "tag_id": "D006",
+    "surface": "子ども",
+    "normalized_surface": "子ども",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000075",
+    "tag_id": "D007",
+    "surface": "アプリ",
+    "normalized_surface": "アプリ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000076",
+    "tag_id": "D007",
+    "surface": "AI",
+    "normalized_surface": "ai",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000077",
+    "tag_id": "D007",
+    "surface": "IT",
+    "normalized_surface": "it",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000078",
+    "tag_id": "D007",
+    "surface": "テック",
+    "normalized_surface": "テック",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000079",
+    "tag_id": "D007",
+    "surface": "プログラミング",
+    "normalized_surface": "プログラミング",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000080",
+    "tag_id": "D008",
+    "surface": "環境",
+    "normalized_surface": "環境",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000081",
+    "tag_id": "D008",
+    "surface": "サステナ",
+    "normalized_surface": "サステナ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000082",
+    "tag_id": "D008",
+    "surface": "自然",
+    "normalized_surface": "自然",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000083",
+    "tag_id": "D008",
+    "surface": "気候",
+    "normalized_surface": "気候",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000084",
+    "tag_id": "D008",
+    "surface": "リサイクル",
+    "normalized_surface": "リサイクル",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000085",
+    "tag_id": "D009",
+    "surface": "ファッション",
+    "normalized_surface": "ファッション",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000086",
+    "tag_id": "D009",
+    "surface": "服",
+    "normalized_surface": "服",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000087",
+    "tag_id": "D009",
+    "surface": "美容",
+    "normalized_surface": "美容",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000088",
+    "tag_id": "D009",
+    "surface": "コスメ",
+    "normalized_surface": "コスメ",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000089",
+    "tag_id": "D009",
+    "surface": "メイク",
+    "normalized_surface": "メイク",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000090",
+    "tag_id": "D010",
+    "surface": "医療",
+    "normalized_surface": "医療",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000091",
+    "tag_id": "D010",
+    "surface": "福祉",
+    "normalized_surface": "福祉",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000092",
+    "tag_id": "D010",
+    "surface": "健康",
+    "normalized_surface": "健康",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000093",
+    "tag_id": "D010",
+    "surface": "病院",
+    "normalized_surface": "病院",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000094",
+    "tag_id": "D010",
+    "surface": "介護",
+    "normalized_surface": "介護",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000095",
+    "tag_id": "S001",
+    "surface": "表に立",
+    "normalized_surface": "表に立",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000096",
+    "tag_id": "S001",
+    "surface": "出演",
+    "normalized_surface": "出演",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000097",
+    "tag_id": "S001",
+    "surface": "自分が出",
+    "normalized_surface": "自分が出",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000098",
+    "tag_id": "S001",
+    "surface": "発信者",
+    "normalized_surface": "発信者",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000099",
+    "tag_id": "S002",
+    "surface": "裏方",
+    "normalized_surface": "裏方",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000100",
+    "tag_id": "S002",
+    "surface": "支える",
+    "normalized_surface": "支える",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000101",
+    "tag_id": "S002",
+    "surface": "縁の下",
+    "normalized_surface": "縁の下",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000102",
+    "tag_id": "S002",
+    "surface": "サポート",
+    "normalized_surface": "サポート",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000103",
+    "tag_id": "S003",
+    "surface": "大勢",
+    "normalized_surface": "大勢",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000104",
+    "tag_id": "S003",
+    "surface": "多くの人",
+    "normalized_surface": "多くの人",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000105",
+    "tag_id": "S003",
+    "surface": "世の中",
+    "normalized_surface": "世の中",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000106",
+    "tag_id": "S003",
+    "surface": "全国",
+    "normalized_surface": "全国",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000107",
+    "tag_id": "S003",
+    "surface": "広く",
+    "normalized_surface": "広く",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000108",
+    "tag_id": "S004",
+    "surface": "一人ひとり",
+    "normalized_surface": "一人ひとり",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000109",
+    "tag_id": "S004",
+    "surface": "身近",
+    "normalized_surface": "身近",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000110",
+    "tag_id": "S004",
+    "surface": "寄り添",
+    "normalized_surface": "寄り添",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  },
+  {
+    "synonym_id": "SYN000111",
+    "tag_id": "S004",
+    "surface": "深く",
+    "normalized_surface": "深く",
+    "source": "prototype",
+    "is_active": "TRUE",
+    "memo": ""
+  }
+]
