@@ -17,6 +17,7 @@ const tags = [
   { id: "D008", axis: "domain", label: "環境・サステナビリティ", synonyms: ["環境", "サステナ", "自然", "気候", "リサイクル"] },
   { id: "D009", axis: "domain", label: "ファッション・美容", synonyms: ["ファッション", "服", "美容", "コスメ", "メイク"] },
   { id: "D010", axis: "domain", label: "医療・福祉", synonyms: ["医療", "福祉", "健康", "病院", "介護"] },
+  { id: "D999", axis: "domain", label: "まだ決めない", synonyms: [] },
   { id: "S001", axis: "style", label: "表に立つ", synonyms: ["表に立", "出演", "自分が出", "発信者"] },
   { id: "S002", axis: "style", label: "裏方", synonyms: ["裏方", "支える", "縁の下", "サポート"] },
   { id: "S003", axis: "style", label: "大勢に届ける", synonyms: ["大勢", "多くの人", "世の中", "全国", "広く"] },
@@ -170,12 +171,7 @@ const jobs = [
   },
 ];
 
-const examples = [
-  "お笑い番組を作りたい",
-  "都市開発に関わりたい",
-  "スポーツをもっと広めたい",
-  "環境のことを子どもに教えたい",
-];
+const domainTagIds = ["D001", "D002", "D003", "D004", "D005", "D006", "D007", "D008", "D009", "D010", "D999"];
 
 const state = {
   input: "",
@@ -297,12 +293,16 @@ function splitResults() {
 function nextQuestion() {
   if (!hasAxis("action") && !hasAxis("domain")) {
     return {
-      question: "まず、近い分野はどれですか?",
-      choices: ["D001", "D002", "D003", "D004", "D005", "D006", "D007", "D008"].map((id) => [id, tagById[id].label]),
+      title: "近い入口を選んでください",
+      helper: "候補を広げるための代表的な切り口です。",
+      question: "どの入口から見てみますか?",
+      choices: domainTagIds.map((id) => [id, tagById[id].label]),
     };
   }
   if (!hasAxis("action") && hasAxis("domain")) {
     return {
+      title: "どう関わりたい?",
+      helper: "迷ったら、少しでも近いものを選んでください。",
       question: "どう関わりたい?",
       choices: [
         ["A002", "作る側"],
@@ -314,12 +314,16 @@ function nextQuestion() {
   }
   if (hasAxis("action") && !hasAxis("domain")) {
     return {
-      question: "どんな分野で?",
-      choices: ["D001", "D002", "D003", "D004", "D005", "D006", "D007", "D008"].map((id) => [id, tagById[id].label]),
+      title: "近い入口を選んでください",
+      helper: "候補を広げるための代表的な切り口です。",
+      question: "どの入口から見てみますか?",
+      choices: domainTagIds.map((id) => [id, tagById[id].label]),
     };
   }
   if (!hasAxis("style")) {
     return {
+      title: "どっちが近い?",
+      helper: "",
       question: "どっちが近い?",
       choices: [
         ["S003", "大勢に届けたい"],
@@ -328,12 +332,6 @@ function nextQuestion() {
     };
   }
   return null;
-}
-
-function renderExamples() {
-  $("exampleRow").innerHTML = examples
-    .map((example) => `<button type="button" class="example-chip" data-example="${escapeAttr(example)}">${escapeHtml(example)}</button>`)
-    .join("");
 }
 
 function renderMetrics() {
@@ -352,8 +350,10 @@ function renderChips() {
     return;
   }
 
-  $("chipsTitle").textContent = question.question === "どっちが近い?" ? "どっちが近い?" : "もう少しだけ教えてください";
-  $("chipQuestion").textContent = `「${state.input}」について、もう少しだけ`;
+  $("chipsTitle").textContent = question.title || "もう少しだけ教えてください";
+  $("chipQuestion").textContent = `「${state.input}」について`;
+  $("chipHelper").textContent = question.helper || "";
+  $("chipHelper").classList.toggle("hidden", !question.helper);
   $("chipList").innerHTML = question.choices
     .map(([id, label]) => `<button type="button" class="choice-chip" data-tag-id="${id}">${escapeHtml(label)}</button>`)
     .join("");
@@ -378,13 +378,17 @@ function renderResults() {
 }
 
 function jobCard(job, label) {
+  const industryTags = job.industries
+    .map((industry) => `<span class="industry-chip">${escapeHtml(industry)}</span>`)
+    .join("");
   return `
     <article class="job-card" data-job-id="${job.id}">
       <div>
-        <span class="route-badge">${escapeHtml(job.industries[0] || label)}</span>
+        <span class="route-badge">${escapeHtml(label)}</span>
       </div>
       <h4>${escapeHtml(job.name)}</h4>
       <p>${escapeHtml(job.description)}</p>
+      <div class="industry-row" aria-label="存在する業界">${industryTags}</div>
       <div class="card-footer">
         <span class="score">${label} / score ${job.score.toFixed(2)}</span>
         <span class="card-link">詳しく見る →</span>
@@ -584,7 +588,6 @@ function bindEvents() {
   });
 }
 
-renderExamples();
 hydrateFromHash();
 bindEvents();
 renderAll();
