@@ -457,7 +457,7 @@ textarea:focus {
 .job-card {
   position: relative;
   display: flex;
-  min-height: 202px;
+  min-height: 238px;
   height: 100%;
   flex-direction: column;
   gap: 10px;
@@ -493,11 +493,17 @@ textarea:focus {
 }
 
 .job-card p {
-  flex: 1;
   margin-bottom: 0;
   color: var(--muted);
   font-size: 13px;
   line-height: 1.6;
+}
+
+.job-card .job-reason {
+  border-left: 3px solid #dfe6ff;
+  padding-left: 10px;
+  color: var(--ink-soft);
+  font-size: 12.5px;
 }
 
 .job-card .route-badge {
