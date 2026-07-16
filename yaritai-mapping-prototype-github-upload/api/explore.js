@@ -3,7 +3,18 @@ const { callOpenAIJson, readJson, sendJson } = require("./_openai");
 const pathSchema = {
   type: "object",
   additionalProperties: false,
-  required: ["title", "industries", "occupations", "why", "first_actions", "keywords", "confidence"],
+  required: [
+    "title",
+    "industries",
+    "occupations",
+    "why",
+    "industry_intro",
+    "career_steps",
+    "first_actions",
+    "keywords",
+    "references",
+    "confidence",
+  ],
   properties: {
     title: { type: "string" },
     industries: {
@@ -15,6 +26,20 @@ const pathSchema = {
       items: { type: "string" },
     },
     why: { type: "string" },
+    industry_intro: { type: "string" },
+    career_steps: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["step", "title", "description"],
+        properties: {
+          step: { type: "string" },
+          title: { type: "string" },
+          description: { type: "string" },
+        },
+      },
+    },
     first_actions: {
       type: "array",
       items: { type: "string" },
@@ -22,6 +47,23 @@ const pathSchema = {
     keywords: {
       type: "array",
       items: { type: "string" },
+    },
+    references: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["label", "type", "url", "note"],
+        properties: {
+          label: { type: "string" },
+          type: {
+            type: "string",
+            enum: ["企業", "採用情報", "インタビュー", "職種紹介", "参考記事"],
+          },
+          url: { type: "string" },
+          note: { type: "string" },
+        },
+      },
     },
     confidence: {
       type: "string",
@@ -61,10 +103,15 @@ const instructions = `
 - 「向いている」と断定しない。
 - 実在しそうな職種・業界名を中心にするが、DBの候補に閉じない。
 - 近い道と、視野を広げる道を分ける。
+- titleは必ず職種名にする。「業界名 / 会社名」ではなく「テレビ番組ディレクター」「音楽プロデューサー」のように書く。
+- 業界はindustry_introで「この職種がある業界は...」という自然な説明文にし、industriesにも短い業界名を入れる。
+- career_stepsには、その職種に近づくための現実的な歩み方を3〜5段階で書く。例:「まずは法人営業で顧客理解と提案力を鍛える」。
+- referencesには、その職種が存在する企業、採用情報、職種紹介、インタビューなどを合計5件前後入れる。URLは必ずhttps://から始まる実在可能性の高い公開ページにする。
 - 業界、職種例、今からできる経験、調べるキーワードを必ず出す。
 - 医療・法律・資格職などは必要資格がある可能性に触れる。
 - 日本語で、学生にもわかる表現にする。
 - 不確実な部分は「可能性」「入口」として表現する。
+- 参考リンクはAIが提示する調査の入口であり、最新性や正確性は利用者が確認する必要がある前提で選ぶ。
 `;
 
 module.exports = async function handler(req, res) {
@@ -82,7 +129,7 @@ module.exports = async function handler(req, res) {
       schema,
       instructions,
       input: JSON.stringify({ student_input: input, interpretation, selected_answer: answer }, null, 2),
-      maxOutputTokens: 3200,
+      maxOutputTokens: 6200,
     });
 
     sendJson(res, 200, result);

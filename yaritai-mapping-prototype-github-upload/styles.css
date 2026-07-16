@@ -471,7 +471,7 @@ textarea:focus {
 .job-card {
   position: relative;
   display: flex;
-  min-height: 238px;
+  min-height: 292px;
   height: 100%;
   flex-direction: column;
   gap: 10px;
@@ -518,6 +518,11 @@ textarea:focus {
   padding-left: 10px;
   color: var(--ink-soft);
   font-size: 12.5px;
+}
+
+.job-card .career-preview {
+  color: var(--muted);
+  font-size: 12px;
 }
 
 .job-card .route-badge {
@@ -636,7 +641,8 @@ textarea:focus {
   font-size: 14px;
 }
 
-.detail-section ul {
+.detail-section ul,
+.career-steps {
   margin: 0;
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -646,18 +652,100 @@ textarea:focus {
   list-style: none;
 }
 
-.detail-section li {
+.detail-section li,
+.career-steps li {
   position: relative;
   padding-left: 18px;
   font-size: 14px;
 }
 
-.detail-section li::before {
+.detail-section li::before,
+.career-steps li::before {
   content: "・";
   position: absolute;
   left: 0;
   color: var(--brand-blue);
   font-weight: 700;
+}
+
+.career-steps {
+  display: grid;
+  gap: 14px;
+}
+
+.career-steps li {
+  display: grid;
+  gap: 4px;
+}
+
+.career-steps strong {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.career-steps span {
+  color: var(--muted);
+}
+
+.reference-list {
+  display: grid;
+  gap: 10px;
+}
+
+.reference-item {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: var(--white);
+}
+
+.reference-item h4 {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.reference-item a {
+  color: var(--brand-blue);
+  text-decoration: none;
+}
+
+.reference-item a:hover,
+.event-cta a:hover {
+  text-decoration: underline;
+}
+
+.reference-item p,
+.reference-empty,
+.ai-note,
+.event-cta {
+  margin-bottom: 0;
+  font-size: 12.5px;
+}
+
+.reference-type {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ai-note {
+  margin-top: 10px;
+  color: var(--placeholder);
+}
+
+.event-cta {
+  border: 1px solid #dfe6ff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: #f7f9ff;
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+
+.event-cta a {
+  color: var(--brand-blue);
+  text-decoration: none;
 }
 
 .full-width {

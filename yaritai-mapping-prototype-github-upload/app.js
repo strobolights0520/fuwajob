@@ -84,7 +84,7 @@ function renderResults() {
   $("resultsEyebrow").textContent = `「${state.input}」の探索地図`;
   $("resultsTitle").textContent = state.exploration.headline;
   const lead = $("resultsBand").querySelector(".section-heading p");
-  if (lead) lead.textContent = state.exploration.reading;
+  if (lead) lead.textContent = `${state.exploration.reading} あくまでAIが出した例です。ご自身で調べてみてください。`;
 
   const signals = [
     ...buildSignals().slice(0, 8),
@@ -99,14 +99,15 @@ function renderResults() {
 
 function pathCard(path, label) {
   const industries = path.industries.map((industry) => `<span class="industry-chip">${escapeHtml(industry)}</span>`).join("");
-  const occupations = path.occupations.slice(0, 3).map((job) => escapeHtml(job)).join(" / ");
+  const careerPreview = path.career_steps?.[0]?.description || path.first_actions?.[0] || "まずは関連する仕事や企業を調べ、近い経験を小さく試してみましょう。";
   return `
     <article class="job-card" data-path-title="${escapeAttr(path.title)}">
       <div><span class="route-badge">${escapeHtml(label)} / 確度 ${escapeHtml(path.confidence)}</span></div>
       <h4>${escapeHtml(path.title)}</h4>
       <p>${escapeHtml(path.why)}</p>
-      <p class="job-reason">職種例: ${occupations}</p>
+      <p class="job-reason">${escapeHtml(path.industry_intro || "この職種がある業界を見てみましょう。")}</p>
       <div class="industry-row" aria-label="関係する業界">${industries}</div>
+      <p class="career-preview">歩み方の例: ${escapeHtml(careerPreview)}</p>
       <div class="card-footer">
         <span class="score">探索候補</span>
         <span class="card-link">詳しく見る →</span>
@@ -192,16 +193,70 @@ function showApiError(error) {
   showToast(`AI接続でエラーが起きました: ${error.message}`);
 }
 
+function isSafeHttpUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" || url.protocol === "http:";
+  } catch {
+    return false;
+  }
+}
+
+function renderReferences(references = []) {
+  if (!references.length) {
+    return `<p class="reference-empty">参考リンクは生成されませんでした。職種名と業界名で検索してみてください。</p>`;
+  }
+
+  return references
+    .slice(0, 5)
+    .map((item) => {
+      const type = escapeHtml(item.type || "参考");
+      const label = escapeHtml(item.label || item.url || "参考リンク");
+      const note = escapeHtml(item.note || "");
+      const url = String(item.url || "");
+      const title = isSafeHttpUrl(url)
+        ? `<a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">${label}</a>`
+        : `<span>${label}</span>`;
+      return `
+        <article class="reference-item">
+          <div>
+            <span class="reference-type">${type}</span>
+            <h4>${title}</h4>
+          </div>
+          <p>${note}</p>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderCareerSteps(steps = []) {
+  if (!steps.length) {
+    return `<li><strong>入口を探す</strong><span>近い業界の求人やインタビューを読み、必要な経験を調べてみましょう。</span></li>`;
+  }
+
+  return steps
+    .map((item) => {
+      const title = item.title || item.step || "次の一歩";
+      return `<li><strong>${escapeHtml(title)}</strong><span>${escapeHtml(item.description || "")}</span></li>`;
+    })
+    .join("");
+}
+
 function openDetail(title) {
   const allPaths = [...(state.exploration?.near_paths || []), ...(state.exploration?.wide_paths || [])];
   const path = allPaths.find((item) => item.title === title);
   if (!path) return;
   state.activePath = path;
-  $("detailCategory").textContent = path.industries.join(" / ");
+  $("detailCategory").textContent = "職種詳細";
   $("detailTitle").textContent = path.title;
   $("detailDescription").textContent = path.why;
+  $("detailIndustryIntro").textContent = path.industry_intro || "この職種がある業界を確認して、企業や働き方を調べてみましょう。";
+  $("detailIndustries").innerHTML = path.industries.map((industry) => `<span class="tag">${escapeHtml(industry)}</span>`).join("");
+  $("detailCareerSteps").innerHTML = renderCareerSteps(path.career_steps);
   $("detailSkills").innerHTML = path.keywords.map((keyword) => `<span class="tag">${escapeHtml(keyword)}</span>`).join("");
   $("detailActions").innerHTML = path.first_actions.map((action) => `<li>${escapeHtml(action)}</li>`).join("");
+  $("detailReferences").innerHTML = renderReferences(path.references);
   $("bookmarkButton").textContent = state.bookmarks.some((item) => item.title === path.title) ? "保存済み" : "保存する";
   $("detailPanel").classList.add("open");
   $("detailPanel").setAttribute("aria-hidden", "false");
