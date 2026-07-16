@@ -531,6 +531,28 @@ textarea:focus {
   pointer-events: none;
 }
 
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 28px 0 36px;
+  color: var(--placeholder);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.site-footer a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--brand-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .rookies-banner {
   margin-top: -16px;
   border-color: #d7f3ee;
@@ -1224,5 +1246,11 @@ textarea:focus {
 
   .result-actions {
     width: 100%;
+  }
+
+  .site-footer {
+    display: grid;
+    gap: 8px;
+    text-align: center;
   }
 }
