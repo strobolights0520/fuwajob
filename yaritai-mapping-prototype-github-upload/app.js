@@ -125,11 +125,21 @@ function renderResults() {
   if (lead) lead.textContent = `${state.exploration.reading} あくまでAIが出した例です。ご自身で調べてみてください。`;
 
   const signals = [
-    ...buildSignals().slice(0, 8),
-    ...(state.selectedAnswer ? [["回答", state.selectedAnswer.label]] : []),
-    ...state.exploration.industries.slice(0, 4).map((industry) => ["業界", industry]),
+    ["動詞", state.interpretation?.verbs || []],
+    ["名詞", state.interpretation?.nouns || []],
+    ["価値観", state.interpretation?.values || []],
+    ["回答", state.selectedAnswer ? [state.selectedAnswer.label] : []],
+    ["業界", state.exploration.industries.slice(0, 4)],
   ];
-  $("tagRow").innerHTML = signals.map(([kind, label]) => `<span class="tag">${escapeHtml(kind)}: ${escapeHtml(label)}</span>`).join("");
+  $("tagRow").innerHTML = signals
+    .filter(([, values]) => values.length)
+    .map(([kind, values]) => `
+      <div class="tag-group">
+        <span class="tag-label">${escapeHtml(kind)}</span>
+        <div class="tag-list">${values.map((label) => `<span class="tag">${escapeHtml(label)}</span>`).join("")}</div>
+      </div>
+    `)
+    .join("");
 
   $("classicJobs").innerHTML = state.exploration.near_paths.map((path) => pathCard(path, "近い道")).join("");
   $("surpriseJobs").innerHTML = state.exploration.wide_paths.map((path) => pathCard(path, "広がる道")).join("");
@@ -138,12 +148,17 @@ function renderResults() {
 function pathCard(path, label) {
   const industries = path.industries.map((industry) => `<span class="industry-chip">${escapeHtml(industry)}</span>`).join("");
   const careerPreview = path.career_steps?.[0]?.description || path.first_actions?.[0] || "まずは関連する仕事や企業を調べ、近い経験を小さく試してみましょう。";
+  const isClassic = label === "近い道";
+  const confidence = path.confidence || (isClassic ? "高" : "中");
   return `
-    <article class="job-card" data-path-title="${escapeAttr(path.title)}">
-      <div><span class="route-badge">${escapeHtml(label)} / 確度 ${escapeHtml(path.confidence)}</span></div>
+    <article class="job-card ${isClassic ? "classic-card" : "adjacent-card"}" data-path-title="${escapeAttr(path.title)}">
+      <div class="confidence-row ${confidenceClass(confidence)}">
+        <span class="confidence-dot" aria-hidden="true"></span>
+        <span>${escapeHtml(label)} / 確度${escapeHtml(confidence)}</span>
+      </div>
       <h4>${escapeHtml(path.title)}</h4>
       <p>${escapeHtml(path.why)}</p>
-      <p class="job-reason">${escapeHtml(path.industry_intro || "この職種がある業界を見てみましょう。")}</p>
+      <div class="job-reason">${escapeHtml(path.industry_intro || "この職種がある業界を見てみましょう。")}</div>
       <div class="industry-row" aria-label="関係する業界">${industries}</div>
       <p class="career-preview">歩み方の例: ${escapeHtml(careerPreview)}</p>
       <div class="card-footer">
@@ -152,6 +167,12 @@ function pathCard(path, label) {
       </div>
     </article>
   `;
+}
+
+function confidenceClass(confidence) {
+  if (confidence === "高") return "confidence-high";
+  if (confidence === "中") return "confidence-medium";
+  return "confidence-low";
 }
 
 function renderAll() {
@@ -273,13 +294,13 @@ function renderReferences(references = []) {
 
 function renderCareerSteps(steps = []) {
   if (!steps.length) {
-    return `<li><strong>入口を探す</strong><span>近い業界の求人やインタビューを読み、必要な経験を調べてみましょう。</span></li>`;
+    return `<li><span class="step-badge">1</span><div><strong>入口を探す</strong><span>近い業界の求人やインタビューを読み、必要な経験を調べてみましょう。</span></div></li>`;
   }
 
   return steps
-    .map((item) => {
+    .map((item, index) => {
       const title = item.title || item.step || "次の一歩";
-      return `<li><strong>${escapeHtml(title)}</strong><span>${escapeHtml(item.description || "")}</span></li>`;
+      return `<li><span class="step-badge">${index + 1}</span><div><strong>${escapeHtml(title)}</strong><span>${escapeHtml(item.description || "")}</span></div></li>`;
     })
     .join("");
 }
@@ -339,7 +360,13 @@ function wrapCanvasText(context, text, x, y, maxWidth, lineHeight, maxLines) {
       y += lineHeight;
       line = char;
       lineCount += 1;
-      if (lineCount >= maxLines - 1) break;
+      if (lineCount >= maxLines - 1) {
+        while (context.measureText(`${line}…`).width > maxWidth && line.length > 0) {
+          line = Array.from(line).slice(0, -1).join("");
+        }
+        line = `${line}…`;
+        break;
+      }
     } else {
       line = testLine;
     }
@@ -367,59 +394,86 @@ function canvasToBlob(canvas) {
 }
 
 async function createShareImageBlob() {
+  const scale = 1080 / 340;
+  const unit = (value) => value * scale;
   const canvas = document.createElement("canvas");
   canvas.width = 1080;
   canvas.height = 1350;
   const context = canvas.getContext("2d");
-  const gradient = context.createLinearGradient(0, 0, 1080, 1350);
-  gradient.addColorStop(0, "#eef6ff");
-  gradient.addColorStop(0.4, "#ecfbf7");
-  gradient.addColorStop(0.75, "#fff3fb");
-  gradient.addColorStop(1, "#fff8ef");
+
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.save();
+  context.shadowColor = "rgba(0,0,0,0.1)";
+  context.shadowBlur = unit(30);
+  context.shadowOffsetY = unit(8);
+  context.fillStyle = "rgba(0,0,0,0.08)";
+  drawRoundedRect(context, 0, 0, canvas.width, canvas.height, unit(28));
+  context.fill();
+  context.restore();
+
+  drawRoundedRect(context, 0, 0, canvas.width, canvas.height, unit(28));
+  context.clip();
+
+  const gradient = context.createLinearGradient(unit(280), 0, unit(30), canvas.height);
+  gradient.addColorStop(0, "#8B7FF5");
+  gradient.addColorStop(0.35, "#6FA8F0");
+  gradient.addColorStop(0.65, "#5CE0C6");
+  gradient.addColorStop(1, "#F0A8E8");
   context.fillStyle = gradient;
   context.fillRect(0, 0, 1080, 1350);
 
-  context.fillStyle = "rgba(255,255,255,0.88)";
-  drawRoundedRect(context, 76, 92, 928, 1166, 42);
-  context.fill();
+  const left = unit(28);
+  const top = unit(32);
+  const contentWidth = unit(284);
 
-  context.font = "900 54px 'Noto Sans JP', sans-serif";
-  context.fillStyle = "#111111";
-  context.fillText("ふわっとjob", 122, 172);
+  context.font = `900 ${unit(22)}px 'Noto Sans JP', sans-serif`;
+  context.fillStyle = "#ffffff";
+  context.fillText("ふわっとjob", left, top + unit(22));
 
-  context.font = "700 28px 'Noto Sans JP', sans-serif";
-  context.fillStyle = "#6b6b6b";
-  context.fillText("入力したこと", 122, 270);
+  context.font = `700 ${unit(12)}px 'Noto Sans JP', sans-serif`;
+  context.fillStyle = "rgba(255,255,255,0.85)";
+  context.fillText("ふわっとした、なりたい姿", left, top + unit(66));
 
-  context.font = "900 62px 'Noto Sans JP', sans-serif";
-  context.fillStyle = "#111111";
+  context.font = `900 ${unit(19)}px 'Noto Sans JP', sans-serif`;
+  context.fillStyle = "#ffffff";
   const input = state.input || $("queryInput").value.trim() || "ふわっとしたやりたいこと";
-  const nextY = wrapCanvasText(context, `「${input}」`, 122, 350, 836, 82, 4);
-
-  context.font = "700 30px 'Noto Sans JP', sans-serif";
-  context.fillStyle = "#6b6b6b";
-  context.fillText("AIが見つけた道の例", 122, nextY + 70);
+  const afterInputY = wrapCanvasText(context, `「${input}」`, left, top + unit(95), contentWidth, unit(28.5), 3);
 
   const paths = [...(state.exploration?.near_paths || []), ...(state.exploration?.wide_paths || [])]
-    .slice(0, 4)
+    .slice(0, 3)
     .map((path) => path.title);
   const labels = paths.length ? paths : ["まずは入力して、キャリアの道を見てみよう"];
 
-  let y = nextY + 128;
-  context.font = "800 38px 'Noto Sans JP', sans-serif";
+  const panelX = left;
+  const panelY = Math.min(afterInputY + unit(16), unit(212));
+  const panelWidth = unit(284);
+  const panelHeight = unit(78 + labels.length * 24);
+  context.fillStyle = "rgba(255,255,255,0.92)";
+  drawRoundedRect(context, panelX, panelY, panelWidth, panelHeight, unit(16));
+  context.fill();
+
+  context.font = `700 ${unit(11)}px 'Noto Sans JP', sans-serif`;
+  context.fillStyle = "#9a9a9a";
+  context.fillText("例えばこんなん出ました", panelX + unit(20), panelY + unit(32));
+
+  context.font = `700 ${unit(14)}px 'Noto Sans JP', sans-serif`;
+  context.fillStyle = "#2a2a2a";
+  let y = panelY + unit(62);
   labels.forEach((label, index) => {
-    context.fillStyle = ["#2d5be3", "#4ab9ab", "#8b7ff5", "#111111"][index] || "#111111";
-    context.fillText(`${index + 1}. ${label}`, 122, y);
-    y += 66;
+    const text = `${index + 1}. ${label}`;
+    wrapCanvasText(context, text, panelX + unit(20), y, panelWidth - unit(40), unit(21), 1);
+    y += unit(25);
   });
 
-  context.font = "700 28px 'Noto Sans JP', sans-serif";
-  context.fillStyle = "#6b6b6b";
-  wrapCanvasText(context, "これはAIが出した例です。気になった職種や企業は自分でも調べてみてください。", 122, 1084, 836, 44, 3);
+  context.font = `500 ${unit(11)}px 'Noto Sans JP', sans-serif`;
+  context.fillStyle = "rgba(255,255,255,0.8)";
+  wrapCanvasText(context, "AIが出した例です。自分でも調べてみてください。", left, unit(369), unit(200), unit(17.6), 2);
 
-  context.font = "900 34px 'Noto Sans JP', sans-serif";
-  context.fillStyle = "#2d5be3";
-  context.fillText("fuwajob.vercel.app", 122, 1212);
+  context.font = `700 ${unit(13)}px 'Noto Sans JP', sans-serif`;
+  context.fillStyle = "#ffffff";
+  context.textAlign = "right";
+  context.fillText("fuwajob.vercel.app", unit(312), unit(386));
+  context.textAlign = "left";
 
   return canvasToBlob(canvas);
 }

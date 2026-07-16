@@ -20,7 +20,8 @@
     <div class="app-shell">
       <header class="topbar" aria-label="サービスヘッダー">
         <button type="button" class="brand-button" id="brandHomeButton" aria-label="トップ画面に戻る">
-          <img src="./assets/fuwato-logo.png" alt="ふわっとjob" class="brand-logo" />
+          <span class="brand-word-main">ふわっと</span>
+          <span class="brand-word-sub">job</span>
         </button>
         <button type="button" class="top-share-button" id="headerShareButton">SNSシェア</button>
       </header>
@@ -82,19 +83,21 @@
         </section>
 
         <section class="results-band hidden" id="resultsBand" aria-labelledby="resultsTitle">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow" id="resultsEyebrow">結果</p>
-              <h2 id="resultsTitle">こんな道があります</h2>
-              <p>これが向いているという意味ではありません。視野を広げるための一覧です。</p>
+          <div class="summary-panel">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow" id="resultsEyebrow">結果</p>
+                <h2 id="resultsTitle">こんな道があります</h2>
+                <p>これが向いているという意味ではありません。視野を広げるための一覧です。</p>
+              </div>
+              <div class="result-actions">
+                <button type="button" class="ghost-button" id="backTopButton">トップに戻る</button>
+                <button type="button" class="ghost-button" id="xShareButton">Xでシェア</button>
+                <button type="button" class="ghost-button" id="imageShareButton">Instagram用画像</button>
+              </div>
             </div>
-            <div class="result-actions">
-              <button type="button" class="ghost-button" id="backTopButton">トップに戻る</button>
-              <button type="button" class="ghost-button" id="xShareButton">Xでシェア</button>
-              <button type="button" class="ghost-button" id="imageShareButton">画像を共有</button>
-            </div>
+            <div class="tag-row" id="tagRow"></div>
           </div>
-          <div class="tag-row" id="tagRow"></div>
           <div class="result-columns">
             <div>
               <div class="group-heading">
@@ -128,8 +131,11 @@
     <aside class="detail-panel" id="detailPanel" aria-hidden="true" aria-labelledby="detailTitle">
       <div class="panel-backdrop" id="panelBackdrop"></div>
       <div class="panel-card" role="dialog" aria-modal="true">
-        <button type="button" class="icon-button" id="closePanel" aria-label="閉じる">×</button>
-        <p class="eyebrow" id="detailCategory">職種詳細</p>
+        <div class="panel-accent" aria-hidden="true"></div>
+        <div class="panel-header">
+          <p class="eyebrow" id="detailCategory">職種詳細</p>
+          <button type="button" class="icon-button" id="closePanel" aria-label="閉じる">×</button>
+        </div>
         <h2 id="detailTitle"></h2>
         <p id="detailDescription"></p>
         <div class="detail-section">
