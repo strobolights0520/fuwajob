@@ -20,8 +20,7 @@
     <div class="app-shell">
       <header class="topbar" aria-label="サービスヘッダー">
         <div class="brand">
-          <span class="brand-dot" aria-hidden="true"></span>
-          <span>やりたいことマッピング</span>
+          <img src="./assets/fuwato-logo.png" alt="ふわっとjob" class="brand-logo" />
         </div>
         <div class="status-pill" id="costStatus">保存 0件</div>
       </header>
@@ -89,7 +88,10 @@
               <h2 id="resultsTitle">こんな道があります</h2>
               <p>これが向いているという意味ではありません。視野を広げるための一覧です。</p>
             </div>
-            <button type="button" class="ghost-button" id="shareButton">URLで共有</button>
+            <div class="result-actions">
+              <button type="button" class="ghost-button" id="backTopButton">トップに戻る</button>
+              <button type="button" class="ghost-button" id="shareButton">URLで共有</button>
+            </div>
           </div>
           <div class="tag-row" id="tagRow"></div>
           <div class="result-columns">

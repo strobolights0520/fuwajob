@@ -248,6 +248,11 @@ function reset() {
   renderAll();
 }
 
+function returnToTop() {
+  reset();
+  requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
+}
+
 function updateHash() {
   const params = new URLSearchParams();
   if (state.input) params.set("q", state.input);
@@ -297,6 +302,7 @@ function bindEvents() {
   });
 
   $("resetButton").addEventListener("click", reset);
+  $("backTopButton").addEventListener("click", returnToTop);
   $("shareButton").addEventListener("click", shareUrl);
   $("closePanel").addEventListener("click", closeDetail);
   $("panelBackdrop").addEventListener("click", closeDetail);
