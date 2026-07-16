@@ -531,6 +531,31 @@ textarea:focus {
   pointer-events: none;
 }
 
+.rookies-banner {
+  margin-top: -16px;
+  border-color: #d7f3ee;
+  background: linear-gradient(135deg, rgba(92, 224, 198, 0.1), rgba(255, 211, 168, 0.13));
+}
+
+.rookies-banner:hover {
+  border-color: #5ce0c6;
+  box-shadow: 0 10px 28px -16px rgba(92, 224, 198, 0.5);
+}
+
+.rookies-banner .affiliate-pr {
+  color: #5abcb0;
+}
+
+.rookies-banner .affiliate-icon {
+  background: linear-gradient(135deg, #5ce0c6, #ffd3a8);
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.rookies-banner .affiliate-arrow {
+  color: #49b9ad;
+}
+
 .section-heading {
   align-items: flex-start;
   justify-content: space-between;

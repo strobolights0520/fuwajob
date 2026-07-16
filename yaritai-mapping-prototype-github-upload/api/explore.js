@@ -103,6 +103,7 @@ const instructions = `
 - 「向いている」と断定しない。
 - 実在しそうな職種・業界名を中心にするが、DBの候補に閉じない。
 - 近い道と、視野を広げる道を分ける。
+- near_pathsは必ず3件、wide_pathsも必ず3件出す。足りない場合も、近い入口・周辺入口・少し遠いが理由のある入口に分けて合計を満たす。
 - titleは必ず職種名にする。「業界名 / 会社名」ではなく「テレビ番組ディレクター」「音楽プロデューサー」のように書く。
 - 業界はindustry_introで「この職種がある業界は...」という自然な説明文にし、industriesにも短い業界名を入れる。
 - career_stepsには、その職種に近づくための現実的な歩み方を3〜5段階で書く。例:「まずは法人営業で顧客理解と提案力を鍛える」。
@@ -114,6 +115,18 @@ const instructions = `
 - 参考リンクはAIが提示する調査の入口であり、最新性や正確性は利用者が確認する必要がある前提で選ぶ。
 `;
 
+function hasThreePaths(result) {
+  return Array.isArray(result?.near_paths) && result.near_paths.length >= 3 && Array.isArray(result?.wide_paths) && result.wide_paths.length >= 3;
+}
+
+function trimPaths(result) {
+  return {
+    ...result,
+    near_paths: Array.isArray(result.near_paths) ? result.near_paths.slice(0, 3) : [],
+    wide_paths: Array.isArray(result.wide_paths) ? result.wide_paths.slice(0, 3) : [],
+  };
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") return sendJson(res, 405, { error: "method_not_allowed" });
 
@@ -124,15 +137,30 @@ module.exports = async function handler(req, res) {
     const interpretation = body.interpretation || null;
     if (!input || !answer || !interpretation) return sendJson(res, 400, { error: "input_interpretation_answer_required" });
 
-    const result = await callOpenAIJson({
+    let result = await callOpenAIJson({
       schemaName: "career_exploration_map",
       schema,
       instructions,
       input: JSON.stringify({ student_input: input, interpretation, selected_answer: answer }, null, 2),
-      maxOutputTokens: 6200,
+      maxOutputTokens: 9000,
     });
 
-    sendJson(res, 200, result);
+    if (!hasThreePaths(result)) {
+      result = await callOpenAIJson({
+        schemaName: "career_exploration_map_repair",
+        schema,
+        instructions: `${instructions}
+
+追加の厳守:
+- 前回の出力は件数不足です。near_pathsを必ず3件、wide_pathsを必ず3件にしてください。
+- 各候補のtitleは職種名にしてください。
+- 既存候補と重複しない職種を補ってください。`,
+        input: JSON.stringify({ student_input: input, interpretation, selected_answer: answer, previous_result: result }, null, 2),
+        maxOutputTokens: 9000,
+      });
+    }
+
+    sendJson(res, 200, trimPaths(result));
   } catch (error) {
     const status = error.statusCode || 500;
     sendJson(res, status, {
