@@ -48,6 +48,9 @@
 
       <main>
         <section class="input-band" id="inputBand" aria-labelledby="inputTitle">
+          <div class="floating-inputs" aria-hidden="true">
+            <div class="floating-input-track" id="floatingInputTrack"></div>
+          </div>
           <div class="input-copy">
             <p class="eyebrow">なんとなくでいい、「やってみたいこと」から</p>
             <h1 id="inputTitle">AIが意味を読み取り<br />必要なことだけ聞きます</h1>
@@ -110,11 +113,6 @@
                 <h2 id="resultsTitle">こんな道があります</h2>
                 <p>これが向いているという意味ではありません。視野を広げるための一覧です。</p>
               </div>
-              <div class="result-actions">
-                <button type="button" class="ghost-button" id="backTopButton">トップに戻る</button>
-                <button type="button" class="ghost-button" id="xShareButton">Xでシェア</button>
-                <button type="button" class="ghost-button" id="imageShareButton">Instagram用画像</button>
-              </div>
             </div>
             <div class="tag-row" id="tagRow"></div>
           </div>
@@ -169,6 +167,11 @@
               </div>
               <div class="job-grid" id="surpriseJobs"></div>
             </div>
+          </div>
+          <div class="result-actions">
+            <button type="button" class="ghost-button" id="backTopButton">トップに戻る</button>
+            <button type="button" class="ghost-button" id="xShareButton">Xでシェア</button>
+            <button type="button" class="ghost-button" id="imageShareButton">Instagram用画像</button>
           </div>
         </section>
 

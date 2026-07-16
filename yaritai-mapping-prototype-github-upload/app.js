@@ -43,6 +43,50 @@ async function postJson(url, payload) {
   return data;
 }
 
+async function fetchRecentInputs() {
+  try {
+    const response = await fetch("/api/recent-inputs", { method: "GET" });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !Array.isArray(data.items)) return [];
+    return data.items;
+  } catch {
+    return [];
+  }
+}
+
+function renderFloatingInputs(items = []) {
+  const track = $("floatingInputTrack");
+  if (!track) return;
+  const cleanItems = items
+    .map((item) => String(item || "").replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .slice(0, 10);
+
+  if (!cleanItems.length) {
+    track.innerHTML = "";
+    return;
+  }
+
+  const rows = cleanItems.map((label, index) => {
+    const top = 8 + ((index * 17) % 74);
+    const startX = -50 - ((index * 19) % 70);
+    const duration = 32 + ((index * 5) % 18);
+    const delay = -1 * ((index * 7) % 28);
+    return `
+      <span
+        class="floating-input-item"
+        style="--top: ${top}%; --start-x: ${startX}%; --duration: ${duration}s; --delay: ${delay}s;"
+      >${escapeHtml(label)}</span>
+    `;
+  });
+
+  track.innerHTML = rows.join("");
+}
+
+async function hydrateRecentInputs() {
+  renderFloatingInputs(await fetchRecentInputs());
+}
+
 function summarizeChoices() {
   return state.interpretation?.question?.choices?.map((choice) => choice.label) || [];
 }
@@ -602,4 +646,5 @@ function bindEvents() {
 
 bindEvents();
 hydrateFromHash();
+hydrateRecentInputs();
 renderAll();
