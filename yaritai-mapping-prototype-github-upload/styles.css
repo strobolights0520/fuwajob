@@ -1034,6 +1034,9 @@ textarea:focus {
 
   .topbar {
     grid-template-columns: 1fr;
+  }
+
+  .topbar {
     gap: 14px;
   }
 

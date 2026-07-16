@@ -1,0 +1,28 @@
+{
+  "source": {
+    "page_url": "https://shigoto.mhlw.go.jp/User/download",
+    "description_file": "IPD_DL_description_7_01.csv",
+    "description_version": "7.01",
+    "description_published_on": "2026-06-04",
+    "numeric_file": "IPD_DL_numeric_7_00.csv",
+    "numeric_version": "7.00",
+    "numeric_published_on": "2026-03-17",
+    "downloaded_on": "2026-07-15",
+    "attribution": "独立行政法人労働政策研究・研修機構（JILPT）作成「職業情報データベース」を、職業情報提供サイト（job tag）よりダウンロードし加工して作成"
+  },
+  "raw_files": [
+    "IPD_DL_description_7_01.csv",
+    "IPD_DL_numeric_7_00.csv"
+  ],
+  "counts": {
+    "jobs": 556,
+    "numeric_records": 518,
+    "aliases": 1468,
+    "classifications": 2507,
+    "qualifications": 1282,
+    "skills": 19422,
+    "knowledge": 16764,
+    "tasks": 7501,
+    "prototype_jobs_sample": 100
+  }
+}

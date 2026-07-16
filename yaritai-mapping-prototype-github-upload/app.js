@@ -331,7 +331,7 @@ function closeDetail() {
 
 function shareText() {
   const input = state.input || $("queryInput").value.trim() || "ふわっとしたやりたいこと";
-  return `「${input}」から、ふわっとjobでキャリアの道を見てみた。`;
+  return `ふわっとjob｜「${input}」に該当する職種を見てみた。なんとなくふわっとした仕事のイメージを入力すると、それに該当する職種を例示します。`;
 }
 
 function ensureShareTarget() {
