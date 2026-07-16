@@ -7,6 +7,7 @@
 - フロントエンドの静的プロトタイプ
 - OpenAI APIを使った「入力解釈 → 深掘り質問 → 探索地図生成」の体験
 - Vercel Serverless FunctionsによるAPI連携
+- Google Sheetsへの利用ログ送信
 - タグ、表記ゆれ、職業マッピングの軽量データ
 - job tag由来の職業リファレンス軽量版
 - 別AIで生成した候補のレビュー用データ
@@ -46,8 +47,10 @@ PORT=4181 npm start
 - `app.js`: プロトタイプのロジック
 - `api/interpret.js`: 入力文を動詞・名詞・価値観に分解し、深掘り質問を生成
 - `api/explore.js`: 深掘り回答を踏まえて探索地図を生成
+- `api/log.js`: 入力文とAI結果の利用ログをGoogle Sheets webhookへ送信
 - `api/_openai.js`: OpenAI Responses APIとの接続
 - `server.mjs`: ローカル確認用サーバー
+- `scripts/google-apps-script-usage-logs.js`: Google Sheets側に貼り付けるApps Script
 - `github-data/`: GitHub公開・共有向けに整理したデータ
 
 ## データ
@@ -86,6 +89,15 @@ OPENAI_MODEL=gpt-4.1-mini
 ```
 
 `OPENAI_MODEL` は省略可能です。
+
+Google Sheetsへ利用ログを記録する場合は、追加で以下を設定してください。
+
+```text
+GOOGLE_SHEET_WEBHOOK_URL=Apps ScriptのWebアプリURL
+LOG_WEBHOOK_TOKEN=任意の共有トークン
+```
+
+`LOG_WEBHOOK_TOKEN` は省略可能ですが、設定する方が安全です。設定手順は `docs/google_sheets_logging_setup.md` を見てください。
 
 ## 出典
 

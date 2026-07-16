@@ -7,16 +7,32 @@ const state = {
   activePath: null,
   isLoading: false,
   loadingMessage: "考えています…",
+  sessionId: readSessionId(),
   bookmarks: readBookmarks(),
 };
 
 const $ = (id) => document.getElementById(id);
+const APP_VERSION = "2026-07-16-ai-logging-v1";
 
 function readBookmarks() {
   try {
     return JSON.parse(sessionStorage.getItem("yaritai_ai_bookmarks") || "[]");
   } catch {
     return [];
+  }
+}
+
+function readSessionId() {
+  try {
+    const stored = sessionStorage.getItem("fuwajob_session_id");
+    if (stored) return stored;
+    const generated = globalThis.crypto?.randomUUID
+      ? globalThis.crypto.randomUUID()
+      : `session_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+    sessionStorage.setItem("fuwajob_session_id", generated);
+    return generated;
+  } catch {
+    return `session_${Date.now()}_${Math.random().toString(16).slice(2)}`;
   }
 }
 
@@ -38,6 +54,42 @@ async function postJson(url, payload) {
     throw error;
   }
   return data;
+}
+
+function summarizeChoices() {
+  return state.interpretation?.question?.choices?.map((choice) => choice.label) || [];
+}
+
+function summarizePaths(paths = []) {
+  return paths.map((path) => path.title);
+}
+
+function logUsage(eventType) {
+  const payload = {
+    event_type: eventType,
+    session_id: state.sessionId,
+    input_text: state.input,
+    ai_summary: state.interpretation?.summary || "",
+    verbs: state.interpretation?.verbs || [],
+    nouns: state.interpretation?.nouns || [],
+    values: state.interpretation?.values || [],
+    question_title: state.interpretation?.question?.title || "",
+    question_body: state.interpretation?.question?.body || "",
+    question_choices: summarizeChoices(),
+    selected_answer: state.selectedAnswer?.label || "",
+    result_headline: state.exploration?.headline || "",
+    near_paths: summarizePaths(state.exploration?.near_paths),
+    wide_paths: summarizePaths(state.exploration?.wide_paths),
+    industries: state.exploration?.industries || [],
+    page_url: location.href,
+    app_version: APP_VERSION,
+  };
+
+  fetch("/api/log", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  }).catch(() => {});
 }
 
 function buildSignals() {
@@ -143,12 +195,14 @@ async function runQuery(value) {
   state.loadingMessage = "言葉を分解しています…";
   updateHash();
   renderAll();
+  logUsage("input_submitted");
 
   try {
     state.interpretation = await postJson("/api/interpret", { input });
     state.route = "生成AI: 深掘り質問を生成";
     state.isLoading = false;
     renderAll();
+    logUsage("question_generated");
   } catch (error) {
     state.isLoading = false;
     state.route = "AI接続エラー";
@@ -177,6 +231,7 @@ async function chooseAnswer(choiceId) {
     state.route = "生成AI: 探索地図";
     state.isLoading = false;
     renderAll();
+    logUsage("exploration_completed");
   } catch (error) {
     state.isLoading = false;
     state.route = "AI接続エラー";

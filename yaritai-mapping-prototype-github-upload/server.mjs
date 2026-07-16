@@ -16,7 +16,7 @@ const types = {
 createServer((req, res) => {
   const urlPath = decodeURIComponent(new URL(req.url, `http://127.0.0.1:${port}`).pathname);
   const safePath = normalize(urlPath).replace(/^(\.\.[/\\])+/, "");
-  if (safePath === "/api/interpret" || safePath === "/api/explore") {
+  if (safePath === "/api/interpret" || safePath === "/api/explore" || safePath === "/api/log") {
     try {
       const handler = require(join(root, `${safePath}.js`));
       handler(req, res);
