@@ -19,10 +19,10 @@
   <body>
     <div class="app-shell">
       <header class="topbar" aria-label="サービスヘッダー">
-        <div class="brand">
+        <button type="button" class="brand-button" id="brandHomeButton" aria-label="トップ画面に戻る">
           <img src="./assets/fuwato-logo.png" alt="ふわっとjob" class="brand-logo" />
-        </div>
-        <div class="status-pill" id="costStatus">保存 0件</div>
+        </button>
+        <button type="button" class="top-share-button" id="headerShareButton">SNSシェア</button>
       </header>
 
       <main>
@@ -61,7 +61,7 @@
             <strong id="tagCountLabel">0件</strong>
           </div>
           <div>
-            <span class="metric-label">保存</span>
+            <span class="metric-label">結果</span>
             <strong id="bookmarkCountLabel">0件</strong>
           </div>
         </section>
@@ -90,7 +90,8 @@
             </div>
             <div class="result-actions">
               <button type="button" class="ghost-button" id="backTopButton">トップに戻る</button>
-              <button type="button" class="ghost-button" id="shareButton">URLで共有</button>
+              <button type="button" class="ghost-button" id="xShareButton">Xでシェア</button>
+              <button type="button" class="ghost-button" id="imageShareButton">画像を共有</button>
             </div>
           </div>
           <div class="tag-row" id="tagRow"></div>
@@ -154,7 +155,6 @@
           <div class="tag-row" id="detailSkills"></div>
         </div>
         <p class="event-cta">ビジネス力を身につけたい方は1日完結のビジコンイベント、<a href="https://gp.careerrookies.com/" target="_blank" rel="noopener noreferrer">CAREER ROOKIESへ！</a></p>
-        <button type="button" class="primary-button full-width" id="bookmarkButton">保存する</button>
       </div>
     </aside>
 

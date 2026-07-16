@@ -8,19 +8,10 @@ const state = {
   isLoading: false,
   loadingMessage: "考えています…",
   sessionId: readSessionId(),
-  bookmarks: readBookmarks(),
 };
 
 const $ = (id) => document.getElementById(id);
-const APP_VERSION = "2026-07-16-ai-logging-v1";
-
-function readBookmarks() {
-  try {
-    return JSON.parse(sessionStorage.getItem("yaritai_ai_bookmarks") || "[]");
-  } catch {
-    return [];
-  }
-}
+const APP_VERSION = "2026-07-16-social-share-v1";
 
 function readSessionId() {
   try {
@@ -34,10 +25,6 @@ function readSessionId() {
   } catch {
     return `session_${Date.now()}_${Math.random().toString(16).slice(2)}`;
   }
-}
-
-function writeBookmarks() {
-  sessionStorage.setItem("yaritai_ai_bookmarks", JSON.stringify(state.bookmarks));
 }
 
 async function postJson(url, payload) {
@@ -105,8 +92,7 @@ function renderMetrics() {
   $("routeLabel").textContent = state.route;
   $("cacheLabel").textContent = state.interpretation ? "生成AI" : "待機中";
   $("tagCountLabel").textContent = `${buildSignals().length}件`;
-  $("bookmarkCountLabel").textContent = `${state.bookmarks.length}件`;
-  $("costStatus").textContent = `保存 ${state.bookmarks.length}件`;
+  $("bookmarkCountLabel").textContent = state.exploration ? "結果あり" : "未生成";
 }
 
 function renderChips() {
@@ -312,7 +298,6 @@ function openDetail(title) {
   $("detailSkills").innerHTML = path.keywords.map((keyword) => `<span class="tag">${escapeHtml(keyword)}</span>`).join("");
   $("detailActions").innerHTML = path.first_actions.map((action) => `<li>${escapeHtml(action)}</li>`).join("");
   $("detailReferences").innerHTML = renderReferences(path.references);
-  $("bookmarkButton").textContent = state.bookmarks.some((item) => item.title === path.title) ? "保存済み" : "保存する";
   $("detailPanel").classList.add("open");
   $("detailPanel").setAttribute("aria-hidden", "false");
 }
@@ -323,27 +308,151 @@ function closeDetail() {
   state.activePath = null;
 }
 
-function bookmarkActivePath() {
-  if (!state.activePath) return;
-  if (!state.bookmarks.some((item) => item.title === state.activePath.title)) {
-    state.bookmarks.push({ title: state.activePath.title, savedAt: new Date().toISOString() });
-    writeBookmarks();
-    showToast("セッション内に保存しました");
-  } else {
-    showToast("すでに保存されています");
-  }
-  $("bookmarkButton").textContent = "保存済み";
-  renderMetrics();
+function shareText() {
+  const input = state.input || $("queryInput").value.trim() || "ふわっとしたやりたいこと";
+  return `「${input}」から、ふわっとjobでキャリアの道を見てみた。`;
 }
 
-async function shareUrl() {
-  const url = location.href;
-  try {
-    await navigator.clipboard.writeText(url);
-    showToast("共有URLをコピーしました");
-  } catch {
-    showToast(url);
+function ensureShareTarget() {
+  if (state.input || $("queryInput").value.trim()) return true;
+  showToast("まずはやってみたいことを入力してください");
+  return false;
+}
+
+function shareToX() {
+  if (!ensureShareTarget()) return;
+  const params = new URLSearchParams({
+    text: shareText(),
+    url: location.href,
+  });
+  window.open(`https://twitter.com/intent/tweet?${params.toString()}`, "_blank", "noopener,noreferrer");
+}
+
+function wrapCanvasText(context, text, x, y, maxWidth, lineHeight, maxLines) {
+  const chars = Array.from(text);
+  let line = "";
+  let lineCount = 0;
+  for (const char of chars) {
+    const testLine = line + char;
+    if (context.measureText(testLine).width > maxWidth && line) {
+      context.fillText(line, x, y);
+      y += lineHeight;
+      line = char;
+      lineCount += 1;
+      if (lineCount >= maxLines - 1) break;
+    } else {
+      line = testLine;
+    }
   }
+  if (lineCount < maxLines) context.fillText(line, x, y);
+  return y + lineHeight;
+}
+
+function drawRoundedRect(context, x, y, width, height, radius) {
+  context.beginPath();
+  context.moveTo(x + radius, y);
+  context.lineTo(x + width - radius, y);
+  context.quadraticCurveTo(x + width, y, x + width, y + radius);
+  context.lineTo(x + width, y + height - radius);
+  context.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+  context.lineTo(x + radius, y + height);
+  context.quadraticCurveTo(x, y + height, x, y + height - radius);
+  context.lineTo(x, y + radius);
+  context.quadraticCurveTo(x, y, x + radius, y);
+  context.closePath();
+}
+
+function canvasToBlob(canvas) {
+  return new Promise((resolve) => canvas.toBlob(resolve, "image/png", 0.92));
+}
+
+async function createShareImageBlob() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 1080;
+  canvas.height = 1350;
+  const context = canvas.getContext("2d");
+  const gradient = context.createLinearGradient(0, 0, 1080, 1350);
+  gradient.addColorStop(0, "#eef6ff");
+  gradient.addColorStop(0.4, "#ecfbf7");
+  gradient.addColorStop(0.75, "#fff3fb");
+  gradient.addColorStop(1, "#fff8ef");
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, 1080, 1350);
+
+  context.fillStyle = "rgba(255,255,255,0.88)";
+  drawRoundedRect(context, 76, 92, 928, 1166, 42);
+  context.fill();
+
+  context.font = "900 54px 'Noto Sans JP', sans-serif";
+  context.fillStyle = "#111111";
+  context.fillText("ふわっとjob", 122, 172);
+
+  context.font = "700 28px 'Noto Sans JP', sans-serif";
+  context.fillStyle = "#6b6b6b";
+  context.fillText("入力したこと", 122, 270);
+
+  context.font = "900 62px 'Noto Sans JP', sans-serif";
+  context.fillStyle = "#111111";
+  const input = state.input || $("queryInput").value.trim() || "ふわっとしたやりたいこと";
+  const nextY = wrapCanvasText(context, `「${input}」`, 122, 350, 836, 82, 4);
+
+  context.font = "700 30px 'Noto Sans JP', sans-serif";
+  context.fillStyle = "#6b6b6b";
+  context.fillText("AIが見つけた道の例", 122, nextY + 70);
+
+  const paths = [...(state.exploration?.near_paths || []), ...(state.exploration?.wide_paths || [])]
+    .slice(0, 4)
+    .map((path) => path.title);
+  const labels = paths.length ? paths : ["まずは入力して、キャリアの道を見てみよう"];
+
+  let y = nextY + 128;
+  context.font = "800 38px 'Noto Sans JP', sans-serif";
+  labels.forEach((label, index) => {
+    context.fillStyle = ["#2d5be3", "#4ab9ab", "#8b7ff5", "#111111"][index] || "#111111";
+    context.fillText(`${index + 1}. ${label}`, 122, y);
+    y += 66;
+  });
+
+  context.font = "700 28px 'Noto Sans JP', sans-serif";
+  context.fillStyle = "#6b6b6b";
+  wrapCanvasText(context, "これはAIが出した例です。気になった職種や企業は自分でも調べてみてください。", 122, 1084, 836, 44, 3);
+
+  context.font = "900 34px 'Noto Sans JP', sans-serif";
+  context.fillStyle = "#2d5be3";
+  context.fillText("fuwajob.vercel.app", 122, 1212);
+
+  return canvasToBlob(canvas);
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+async function shareImage() {
+  if (!ensureShareTarget()) return;
+  const blob = await createShareImageBlob();
+  if (!blob) {
+    showToast("シェア画像を作れませんでした");
+    return;
+  }
+  const file = new File([blob], "fuwajob-share.png", { type: "image/png" });
+  if (navigator.canShare?.({ files: [file] }) && navigator.share) {
+    try {
+      await navigator.share({ files: [file], title: "ふわっとjob", text: shareText() });
+      return;
+    } catch (error) {
+      if (error.name === "AbortError") return;
+    }
+  }
+  downloadBlob(blob, "fuwajob-share.png");
+  showToast("画像を保存しました。Instagramなどに投稿できます");
 }
 
 function reset() {
@@ -412,11 +521,13 @@ function bindEvents() {
   });
 
   $("resetButton").addEventListener("click", reset);
+  $("brandHomeButton").addEventListener("click", returnToTop);
   $("backTopButton").addEventListener("click", returnToTop);
-  $("shareButton").addEventListener("click", shareUrl);
+  $("headerShareButton").addEventListener("click", shareImage);
+  $("xShareButton").addEventListener("click", shareToX);
+  $("imageShareButton").addEventListener("click", shareImage);
   $("closePanel").addEventListener("click", closeDetail);
   $("panelBackdrop").addEventListener("click", closeDetail);
-  $("bookmarkButton").addEventListener("click", bookmarkActivePath);
 
   document.addEventListener("click", (event) => {
     const choice = event.target.closest("[data-choice-id]");

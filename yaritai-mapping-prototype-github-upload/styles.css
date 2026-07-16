@@ -87,7 +87,7 @@ button {
   backdrop-filter: blur(10px);
 }
 
-.brand,
+.brand-button,
 .section-heading,
 .form-actions,
 .insight-strip,
@@ -98,12 +98,19 @@ button {
   align-items: center;
 }
 
-.brand {
+.brand-button {
   min-width: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
   gap: 8px;
   color: var(--ink);
   font-size: 15px;
   font-weight: 700;
+}
+
+.brand-button:hover {
+  opacity: 0.82;
 }
 
 .brand-logo {
@@ -120,7 +127,7 @@ button {
   background: linear-gradient(135deg, #8b7ff5, #6fa8f0 35%, #5ce0c6 65%, #f0a8e8);
 }
 
-.status-pill {
+.top-share-button {
   flex: 0 0 auto;
   min-height: 34px;
   border: 1.5px solid var(--line-strong);
@@ -130,6 +137,11 @@ button {
   color: var(--ink-soft);
   font-size: 13px;
   font-weight: 700;
+}
+
+.top-share-button:hover {
+  border-color: var(--brand-blue);
+  color: var(--brand-blue);
 }
 
 main {
@@ -848,7 +860,7 @@ textarea:focus {
     width: min(100% - 20px, 680px);
   }
 
-  .brand {
+  .brand-button {
     font-size: 14px;
   }
 
@@ -856,7 +868,7 @@ textarea:focus {
     width: 126px;
   }
 
-  .status-pill {
+  .top-share-button {
     padding-inline: 11px;
   }
 
