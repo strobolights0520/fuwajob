@@ -55,7 +55,22 @@ module.exports = async function handler(req, res) {
     });
     clearTimeout(timeout);
 
-    if (!response.ok) return sendJson(res, 200, { ok: false, status: response.status });
+    const text = await response.text();
+    let result = null;
+    try {
+      result = JSON.parse(text);
+    } catch {
+      result = null;
+    }
+
+    if (!response.ok || result?.ok !== true) {
+      return sendJson(res, 200, {
+        ok: false,
+        status: response.status,
+        response: result || text.slice(0, 240),
+      });
+    }
+
     sendJson(res, 200, { ok: true });
   } catch (error) {
     sendJson(res, 200, { ok: false, error: error.message || "log_failed" });
