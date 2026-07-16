@@ -8,26 +8,18 @@ const schema = {
     summary: { type: "string" },
     verbs: {
       type: "array",
-      minItems: 1,
-      maxItems: 6,
       items: { type: "string" },
     },
     nouns: {
       type: "array",
-      minItems: 1,
-      maxItems: 8,
       items: { type: "string" },
     },
     values: {
       type: "array",
-      minItems: 1,
-      maxItems: 6,
       items: { type: "string" },
     },
     ambiguities: {
       type: "array",
-      minItems: 1,
-      maxItems: 5,
       items: { type: "string" },
     },
     question: {
@@ -39,8 +31,6 @@ const schema = {
         body: { type: "string" },
         choices: {
           type: "array",
-          minItems: 3,
-          maxItems: 6,
           items: {
             type: "object",
             additionalProperties: false,

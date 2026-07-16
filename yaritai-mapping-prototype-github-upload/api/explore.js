@@ -8,27 +8,19 @@ const pathSchema = {
     title: { type: "string" },
     industries: {
       type: "array",
-      minItems: 1,
-      maxItems: 4,
       items: { type: "string" },
     },
     occupations: {
       type: "array",
-      minItems: 2,
-      maxItems: 5,
       items: { type: "string" },
     },
     why: { type: "string" },
     first_actions: {
       type: "array",
-      minItems: 2,
-      maxItems: 4,
       items: { type: "string" },
     },
     keywords: {
       type: "array",
-      minItems: 2,
-      maxItems: 5,
       items: { type: "string" },
     },
     confidence: {
@@ -47,20 +39,14 @@ const schema = {
     reading: { type: "string" },
     near_paths: {
       type: "array",
-      minItems: 2,
-      maxItems: 4,
       items: pathSchema,
     },
     wide_paths: {
       type: "array",
-      minItems: 1,
-      maxItems: 3,
       items: pathSchema,
     },
     industries: {
       type: "array",
-      minItems: 2,
-      maxItems: 8,
       items: { type: "string" },
     },
     note: { type: "string" },
