@@ -1,4 +1,5 @@
 const { callOpenAIJson, readJson, sendJson } = require("./_openai");
+const { checkRateLimit, readInt, sendRateLimited } = require("./_rate-limit");
 
 const schema = {
   type: "object",
@@ -63,6 +64,13 @@ const instructions = `
 
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") return sendJson(res, 405, { error: "method_not_allowed" });
+
+  const rateLimit = checkRateLimit(req, {
+    scope: "interpret",
+    limit: readInt(process.env.INTERPRET_RATE_LIMIT, 12),
+    windowMs: readInt(process.env.RATE_LIMIT_WINDOW_MS, 10 * 60 * 1000),
+  });
+  if (!rateLimit.ok) return sendRateLimited(res, sendJson, rateLimit);
 
   try {
     const body = await readJson(req);

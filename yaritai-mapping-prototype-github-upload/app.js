@@ -252,6 +252,10 @@ function showApiError(error) {
     showToast("Vercelの環境変数 OPENAI_API_KEY が未設定です");
     return;
   }
+  if (error.message === "rate_limited" || error.statusCode === 429) {
+    showToast("アクセスが集中しています。少し時間をおいてからもう一度お試しください");
+    return;
+  }
   showToast(`AI接続でエラーが起きました: ${error.message}`);
 }
 
