@@ -6,12 +6,30 @@ const state = {
   route: "未入力",
   activePath: null,
   isLoading: false,
+  isLoadingMore: false,
+  canLoadMore: false,
   loadingMessage: "考えています…",
   sessionId: readSessionId(),
 };
 
 const $ = (id) => document.getElementById(id);
-const APP_VERSION = "2026-07-17-feedback-v1";
+const APP_VERSION = "2026-07-17-progressive-results-v1";
+let loadingMessageTimer = null;
+
+const INTERPRET_LOADING_MESSAGES = [
+  "言葉を分解しています…",
+  "動詞や名詞の手がかりを見ています…",
+  "ふわっとした意味を整理しています…",
+  "次に聞くべきことを考えています…",
+];
+
+const EXPLORE_LOADING_MESSAGES = [
+  "探索地図を作っています…",
+  "近い職種の入口を探しています…",
+  "業界との接点を整理しています…",
+  "少し意外な選択肢も見ています…",
+  "キャリアの歩み方を組み立てています…",
+];
 
 function readSessionId() {
   try {
@@ -195,6 +213,17 @@ function renderResults() {
 
   $("classicJobs").innerHTML = state.exploration.near_paths.map((path) => pathCard(path, "近い道")).join("");
   $("surpriseJobs").innerHTML = state.exploration.wide_paths.map((path) => pathCard(path, "広がる道")).join("");
+  const moreArea = $("moreResultsArea");
+  const moreButton = $("moreResultsButton");
+  const moreHelper = $("moreResultsHelper");
+  if (moreArea && moreButton && moreHelper) {
+    moreArea.classList.toggle("hidden", !state.canLoadMore);
+    moreButton.disabled = state.isLoadingMore;
+    moreButton.textContent = state.isLoadingMore ? "追加で探しています…" : "もっと探す";
+    moreHelper.textContent = state.isLoadingMore
+      ? state.loadingMessage
+      : "追加で3件、別の角度から候補を探します。";
+  }
 }
 
 function pathCard(path, label) {
@@ -244,6 +273,25 @@ function renderAll() {
   renderResults();
 }
 
+function startLoadingMessages(messages) {
+  stopLoadingMessages();
+  if (!messages.length) return;
+  let index = Math.floor(Math.random() * messages.length);
+  state.loadingMessage = messages[index];
+  loadingMessageTimer = setInterval(() => {
+    index = (index + 1) % messages.length;
+    state.loadingMessage = messages[index];
+    renderAll();
+  }, 1800);
+}
+
+function stopLoadingMessages() {
+  if (loadingMessageTimer) {
+    clearInterval(loadingMessageTimer);
+    loadingMessageTimer = null;
+  }
+}
+
 async function runQuery(value, options = {}) {
   const input = value.trim();
   if (!input) {
@@ -256,9 +304,11 @@ async function runQuery(value, options = {}) {
   state.selectedAnswer = null;
   state.exploration = null;
   state.activePath = null;
+  state.isLoadingMore = false;
+  state.canLoadMore = false;
   state.route = "生成AI: 入力を分解中";
   state.isLoading = true;
-  state.loadingMessage = "言葉を分解しています…";
+  startLoadingMessages(INTERPRET_LOADING_MESSAGES);
   if (!options.keepHash) updateHash();
   renderAll();
   logUsage("input_submitted");
@@ -267,11 +317,13 @@ async function runQuery(value, options = {}) {
     state.interpretation = await postJson("/api/interpret", { input });
     state.route = "生成AI: 深掘り質問を生成";
     state.isLoading = false;
+    stopLoadingMessages();
     renderAll();
     logUsage("question_generated");
     return true;
   } catch (error) {
     state.isLoading = false;
+    stopLoadingMessages();
     state.route = "AI接続エラー";
     renderAll();
     showApiError(error);
@@ -289,7 +341,9 @@ async function chooseAnswerObject(choice) {
   state.selectedAnswer = choice;
   state.route = "生成AI: 探索地図を生成中";
   state.isLoading = true;
-  state.loadingMessage = "探索地図を作っています…";
+  state.isLoadingMore = false;
+  state.canLoadMore = false;
+  startLoadingMessages(EXPLORE_LOADING_MESSAGES);
   updateHash();
   renderAll();
 
@@ -298,13 +352,56 @@ async function chooseAnswerObject(choice) {
       input: state.input,
       interpretation: state.interpretation,
       answer: choice,
+      mode: "initial",
     });
     state.route = "生成AI: 探索地図";
     state.isLoading = false;
+    state.canLoadMore = true;
+    stopLoadingMessages();
     renderAll();
     logUsage("exploration_completed");
   } catch (error) {
     state.isLoading = false;
+    stopLoadingMessages();
+    state.route = "AI接続エラー";
+    renderAll();
+    showApiError(error);
+  }
+}
+
+async function loadMoreResults() {
+  if (!state.exploration || !state.selectedAnswer || state.isLoadingMore || !state.canLoadMore) return;
+
+  const existingPaths = [...state.exploration.near_paths, ...state.exploration.wide_paths].map((path) => path.title);
+  state.route = "生成AI: 追加候補を生成中";
+  state.isLoadingMore = true;
+  startLoadingMessages(EXPLORE_LOADING_MESSAGES);
+  renderAll();
+
+  try {
+    const result = await postJson("/api/explore", {
+      input: state.input,
+      interpretation: state.interpretation,
+      answer: state.selectedAnswer,
+      mode: "more",
+      existing_paths: existingPaths,
+    });
+
+    state.exploration = {
+      ...state.exploration,
+      near_paths: [...state.exploration.near_paths, ...(result.near_paths || [])],
+      wide_paths: [...state.exploration.wide_paths, ...(result.wide_paths || [])],
+      industries: Array.from(new Set([...(state.exploration.industries || []), ...(result.industries || [])])),
+    };
+    state.route = "生成AI: 探索地図";
+    state.isLoadingMore = false;
+    state.canLoadMore = false;
+    stopLoadingMessages();
+    renderAll();
+    logUsage("more_results_generated");
+  } catch (error) {
+    state.isLoadingMore = false;
+    stopLoadingMessages();
     state.route = "AI接続エラー";
     renderAll();
     showApiError(error);
@@ -606,6 +703,9 @@ function reset() {
   state.exploration = null;
   state.route = "未入力";
   state.isLoading = false;
+  state.isLoadingMore = false;
+  state.canLoadMore = false;
+  stopLoadingMessages();
   $("queryInput").value = "";
   history.replaceState(null, "", location.pathname);
   renderAll();
@@ -692,6 +792,7 @@ function bindEvents() {
   $("headerShareButton").addEventListener("click", shareImage);
   $("xShareButton").addEventListener("click", shareToX);
   $("imageShareButton").addEventListener("click", shareImage);
+  $("moreResultsButton").addEventListener("click", loadMoreResults);
   $("closePanel").addEventListener("click", closeDetail);
   $("panelBackdrop").addEventListener("click", closeDetail);
 

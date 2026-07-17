@@ -104,7 +104,6 @@ const instructions = `
 - 「向いている」と断定しない。
 - 実在しそうな職種・業界名を中心にするが、DBの候補に閉じない。
 - 近い道と、視野を広げる道を分ける。
-- near_pathsは必ず3件、wide_pathsも必ず3件出す。足りない場合も、近い入口・周辺入口・少し遠いが理由のある入口に分けて合計を満たす。
 - titleは必ず職種名にする。「業界名 / 会社名」ではなく「テレビ番組ディレクター」「音楽プロデューサー」のように書く。
 - 業界はindustry_introで「この職種がある業界は...」という自然な説明文にし、industriesにも短い業界名を入れる。
 - career_stepsには、その職種に近づくための現実的な歩み方を4段階で書く。例:「まずは法人営業で顧客理解と提案力を鍛える」。
@@ -117,15 +116,38 @@ const instructions = `
 - referencesはAIが提示する調査の入口であり、実在URLではなく検索キーワードとして扱われる前提で選ぶ。
 `;
 
-function hasThreePaths(result) {
-  return Array.isArray(result?.near_paths) && result.near_paths.length >= 3 && Array.isArray(result?.wide_paths) && result.wide_paths.length >= 3;
+function countsForMode(mode) {
+  if (mode === "more") return { near: 2, wide: 1, tokenBudget: 6500 };
+  return { near: 1, wide: 1, tokenBudget: 5000 };
 }
 
-function trimPaths(result) {
+function instructionsForMode(mode, counts) {
+  const countInstruction = mode === "more"
+    ? `- 追加表示用です。near_pathsは必ず${counts.near}件、wide_pathsは必ず${counts.wide}件、合計3件だけ出す。`
+    : `- 初回表示用です。near_pathsは必ず${counts.near}件、wide_pathsは必ず${counts.wide}件、合計2件だけ出す。`;
+  const duplicateInstruction = mode === "more"
+    ? "- existing_titlesに含まれる職種名と同じ、またはほぼ同じ職種は絶対に出さない。"
+    : "";
+
+  return `${instructions}
+
+今回の出力条件:
+${countInstruction}
+${duplicateInstruction}
+- 件数を増やさず、指定件数を守る。
+- それぞれの候補は、詳細画面でそのまま使える密度で書く。`;
+}
+
+function hasExpectedPaths(result, counts) {
+  return Array.isArray(result?.near_paths) && result.near_paths.length >= counts.near
+    && Array.isArray(result?.wide_paths) && result.wide_paths.length >= counts.wide;
+}
+
+function trimPaths(result, counts) {
   return {
     ...result,
-    near_paths: Array.isArray(result.near_paths) ? result.near_paths.slice(0, 3) : [],
-    wide_paths: Array.isArray(result.wide_paths) ? result.wide_paths.slice(0, 3) : [],
+    near_paths: Array.isArray(result.near_paths) ? result.near_paths.slice(0, counts.near) : [],
+    wide_paths: Array.isArray(result.wide_paths) ? result.wide_paths.slice(0, counts.wide) : [],
   };
 }
 
@@ -144,32 +166,38 @@ module.exports = async function handler(req, res) {
     const input = String(body.input || "").trim();
     const answer = body.answer || null;
     const interpretation = body.interpretation || null;
+    const mode = body.mode === "more" ? "more" : "initial";
+    const existingTitles = Array.isArray(body.existing_paths)
+      ? body.existing_paths.map((item) => String(item || "").trim()).filter(Boolean)
+      : [];
     if (!input || !answer || !interpretation) return sendJson(res, 400, { error: "input_interpretation_answer_required" });
 
+    const counts = countsForMode(mode);
+    const modeInstructions = instructionsForMode(mode, counts);
     let result = await callOpenAIJson({
       schemaName: "career_exploration_map",
       schema,
-      instructions,
-      input: JSON.stringify({ student_input: input, interpretation, selected_answer: answer }, null, 2),
-      maxOutputTokens: 9000,
+      instructions: modeInstructions,
+      input: JSON.stringify({ student_input: input, interpretation, selected_answer: answer, mode, existing_titles: existingTitles }, null, 2),
+      maxOutputTokens: counts.tokenBudget,
     });
 
-    if (!hasThreePaths(result)) {
+    if (!hasExpectedPaths(result, counts)) {
       result = await callOpenAIJson({
         schemaName: "career_exploration_map_repair",
         schema,
-        instructions: `${instructions}
+        instructions: `${modeInstructions}
 
 追加の厳守:
-- 前回の出力は件数不足です。near_pathsを必ず3件、wide_pathsを必ず3件にしてください。
+- 前回の出力は件数不足です。near_pathsを必ず${counts.near}件、wide_pathsを必ず${counts.wide}件にしてください。
 - 各候補のtitleは職種名にしてください。
 - 既存候補と重複しない職種を補ってください。`,
-        input: JSON.stringify({ student_input: input, interpretation, selected_answer: answer, previous_result: result }, null, 2),
-        maxOutputTokens: 9000,
+        input: JSON.stringify({ student_input: input, interpretation, selected_answer: answer, mode, existing_titles: existingTitles, previous_result: result }, null, 2),
+        maxOutputTokens: counts.tokenBudget,
       });
     }
 
-    sendJson(res, 200, trimPaths(result));
+    sendJson(res, 200, { ...trimPaths(result, counts), mode });
   } catch (error) {
     const status = error.statusCode || 500;
     sendJson(res, status, {

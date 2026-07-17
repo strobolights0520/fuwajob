@@ -747,6 +747,31 @@ textarea:focus {
   margin-top: 28px;
 }
 
+.more-results-area {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  margin: 30px 0 6px;
+  padding: 18px 0 4px;
+}
+
+.more-results-area .primary-button {
+  min-width: 180px;
+}
+
+.more-results-area .primary-button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
+}
+
+.more-results-area p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .tag-row {
   display: flex;
   flex-direction: column;
