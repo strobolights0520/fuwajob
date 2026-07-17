@@ -54,14 +54,14 @@ const pathSchema = {
       items: {
         type: "object",
         additionalProperties: false,
-        required: ["label", "type", "url", "note"],
+        required: ["label", "type", "query", "note"],
         properties: {
           label: { type: "string" },
           type: {
             type: "string",
-            enum: ["企業", "採用情報", "インタビュー", "職種紹介", "参考記事"],
+            enum: ["企業検索", "採用検索", "インタビュー検索", "職種紹介検索", "参考検索"],
           },
-          url: { type: "string" },
+          query: { type: "string" },
           note: { type: "string" },
         },
       },
@@ -108,12 +108,12 @@ const instructions = `
 - titleは必ず職種名にする。「業界名 / 会社名」ではなく「テレビ番組ディレクター」「音楽プロデューサー」のように書く。
 - 業界はindustry_introで「この職種がある業界は...」という自然な説明文にし、industriesにも短い業界名を入れる。
 - career_stepsには、その職種に近づくための現実的な歩み方を4段階で書く。例:「まずは法人営業で顧客理解と提案力を鍛える」。
-- referencesには、その職種が存在する企業、採用情報、職種紹介、インタビューなどを3件入れる。URLは必ずhttps://から始まる実在可能性の高い公開ページにする。
+- referencesには、その職種が存在する企業、採用情報、職種紹介、インタビューなどを探すための検索テーマを3件入れる。URLは作らず、queryにGoogle検索向けの日本語キーワードを書く。
 - 業界、職種例、今からできる経験、調べるキーワードを必ず出す。
 - 医療・法律・資格職などは必要資格がある可能性に触れる。
 - 日本語で、学生にもわかる表現にする。
 - 不確実な部分は「可能性」「入口」として表現する。
-- 参考リンクはAIが提示する調査の入口であり、最新性や正確性は利用者が確認する必要がある前提で選ぶ。
+- referencesはAIが提示する調査の入口であり、実在URLではなく検索キーワードとして扱われる前提で選ぶ。
 `;
 
 function hasThreePaths(result) {

@@ -303,35 +303,47 @@ function showApiError(error) {
   showToast(`AI接続でエラーが起きました: ${error.message}`);
 }
 
-function isSafeHttpUrl(value) {
-  try {
-    const url = new URL(value);
-    return url.protocol === "https:" || url.protocol === "http:";
-  } catch {
-    return false;
-  }
+function googleSearchUrl(query) {
+  const params = new URLSearchParams({ q: query });
+  return `https://www.google.com/search?${params.toString()}`;
 }
 
-function renderReferences(references = []) {
+function searchQueryForReference(path, item) {
+  const industry = path.industries?.[0] || "";
+  const label = item.label || "";
+  const query = item.query || "";
+  const type = item.type || "";
+  return [query, path.title, industry, label, type].filter(Boolean).join(" ");
+}
+
+function fallbackReferences(path) {
+  const title = path.title || "職種";
+  const industry = path.industries?.[0] || "";
+  return [
+    { label: `${title}の仕事内容を調べる`, type: "職種紹介検索", query: `${title} 仕事内容 ${industry}`, note: "仕事内容や必要な経験を調べる入口です。" },
+    { label: `${title}の採用情報を調べる`, type: "採用検索", query: `${title} 採用 新卒 中途 ${industry}`, note: "実際に募集している企業や条件を調べる入口です。" },
+    { label: `${title}のインタビューを読む`, type: "インタビュー検索", query: `${title} インタビュー キャリア ${industry}`, note: "働いている人の話を探す入口です。" },
+  ];
+}
+
+function renderReferences(path) {
+  const references = path.references?.length ? path.references : fallbackReferences(path);
   if (!references.length) {
-    return `<p class="reference-empty">参考リンクは生成されませんでした。職種名と業界名で検索してみてください。</p>`;
+    return `<p class="reference-empty">職種名と業界名で検索してみてください。</p>`;
   }
 
   return references
-    .slice(0, 5)
+    .slice(0, 3)
     .map((item) => {
-      const type = escapeHtml(item.type || "参考");
-      const label = escapeHtml(item.label || item.url || "参考リンク");
+      const type = escapeHtml(item.type || "検索");
+      const label = escapeHtml(item.label || "Googleで検索する");
       const note = escapeHtml(item.note || "");
-      const url = String(item.url || "");
-      const title = isSafeHttpUrl(url)
-        ? `<a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">${label}</a>`
-        : `<span>${label}</span>`;
+      const url = googleSearchUrl(searchQueryForReference(path, item));
       return `
         <article class="reference-item">
           <div>
             <span class="reference-type">${type}</span>
-            <h4>${title}</h4>
+            <h4><a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">${label}</a></h4>
           </div>
           <p>${note}</p>
         </article>
@@ -366,7 +378,7 @@ function openDetail(title) {
   $("detailCareerSteps").innerHTML = renderCareerSteps(path.career_steps);
   $("detailSkills").innerHTML = path.keywords.map((keyword) => `<span class="tag">${escapeHtml(keyword)}</span>`).join("");
   $("detailActions").innerHTML = path.first_actions.map((action) => `<li>${escapeHtml(action)}</li>`).join("");
-  $("detailReferences").innerHTML = renderReferences(path.references);
+  $("detailReferences").innerHTML = renderReferences(path);
   $("detailPanel").classList.add("open");
   $("detailPanel").setAttribute("aria-hidden", "false");
 }
