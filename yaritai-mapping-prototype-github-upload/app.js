@@ -11,7 +11,7 @@ const state = {
 };
 
 const $ = (id) => document.getElementById(id);
-const APP_VERSION = "2026-07-16-social-share-v1";
+const APP_VERSION = "2026-07-17-feedback-v1";
 
 function readSessionId() {
   try {
@@ -153,7 +153,15 @@ function renderChips() {
   $("chipHelper").classList.remove("hidden");
   $("chipList").innerHTML = question.choices
     .map((choice) => `<button type="button" class="choice-chip" data-choice-id="${escapeAttr(choice.id)}">${escapeHtml(choice.label)}</button>`)
-    .join("");
+    .join("") + `
+      <div class="other-choice-box">
+        <label for="otherAnswerInput">その他（自由記述）</label>
+        <div>
+          <input id="otherAnswerInput" type="text" maxlength="80" placeholder="近いものがなければ自由に入力" />
+          <button type="button" class="ghost-button" id="otherAnswerButton">これで進む</button>
+        </div>
+      </div>
+    `;
   chipsBand.classList.remove("hidden");
 }
 
@@ -199,6 +207,7 @@ function pathCard(path, label) {
       <div class="confidence-row ${confidenceClass(confidence)}">
         <span class="confidence-dot" aria-hidden="true"></span>
         <span>${escapeHtml(label)} / 確度${escapeHtml(confidence)}</span>
+        <span class="confidence-stars" aria-label="確度${escapeAttr(confidence)}">${confidenceStars(confidence)}</span>
       </div>
       <h4>${escapeHtml(path.title)}</h4>
       <p>${escapeHtml(path.why)}</p>
@@ -219,6 +228,12 @@ function confidenceClass(confidence) {
   return "confidence-low";
 }
 
+function confidenceStars(confidence) {
+  if (confidence === "高") return "★★★";
+  if (confidence === "中") return "★★";
+  return "★";
+}
+
 function renderAll() {
   $("inputBand").classList.toggle("hidden", Boolean(state.input));
   $("loadingState").classList.toggle("hidden", !state.isLoading);
@@ -229,11 +244,11 @@ function renderAll() {
   renderResults();
 }
 
-async function runQuery(value) {
+async function runQuery(value, options = {}) {
   const input = value.trim();
   if (!input) {
     showToast("やってみたいことを少しだけ入力してください");
-    return;
+    return false;
   }
 
   state.input = input;
@@ -244,7 +259,7 @@ async function runQuery(value) {
   state.route = "生成AI: 入力を分解中";
   state.isLoading = true;
   state.loadingMessage = "言葉を分解しています…";
-  updateHash();
+  if (!options.keepHash) updateHash();
   renderAll();
   logUsage("input_submitted");
 
@@ -254,18 +269,23 @@ async function runQuery(value) {
     state.isLoading = false;
     renderAll();
     logUsage("question_generated");
+    return true;
   } catch (error) {
     state.isLoading = false;
     state.route = "AI接続エラー";
     renderAll();
     showApiError(error);
+    return false;
   }
 }
 
 async function chooseAnswer(choiceId) {
   const choice = state.interpretation?.question?.choices?.find((item) => item.id === choiceId);
   if (!choice) return;
+  await chooseAnswerObject(choice);
+}
 
+async function chooseAnswerObject(choice) {
   state.selectedAnswer = choice;
   state.route = "生成AI: 探索地図を生成中";
   state.isLoading = true;
@@ -336,14 +356,15 @@ function renderReferences(path) {
     .slice(0, 3)
     .map((item) => {
       const type = escapeHtml(item.type || "検索");
-      const label = escapeHtml(item.label || "Googleで検索する");
       const note = escapeHtml(item.note || "");
-      const url = googleSearchUrl(searchQueryForReference(path, item));
+      const query = searchQueryForReference(path, item);
+      const label = escapeHtml(item.query || query || item.label || "職種 仕事内容");
+      const url = googleSearchUrl(query);
       return `
         <article class="reference-item">
           <div>
             <span class="reference-type">${type}</span>
-            <h4><a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">${label}</a></h4>
+            <h4><a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">Googleで「${label}」を検索する</a></h4>
           </div>
           <p>${note}</p>
         </article>
@@ -391,6 +412,15 @@ function closeDetail() {
 
 function shareText() {
   const input = state.input || $("queryInput").value.trim() || "ふわっとしたやりたいこと";
+  const paths = [...(state.exploration?.near_paths || []), ...(state.exploration?.wide_paths || [])]
+    .slice(0, 3)
+    .map((path) => path.title)
+    .filter(Boolean);
+
+  if (paths.length) {
+    return `ふわっとjob｜「${input}」から出た職種例\n${paths.map((path) => `・${path}`).join("\n")}\n\nあくまでAIが出した例です。自分でも調べてみてください。`;
+  }
+
   return `ふわっとjob｜「${input}」に該当する職種を見てみた。なんとなくふわっとした仕事のイメージを入力すると、それに該当する職種を例示します。`;
 }
 
@@ -589,16 +619,38 @@ function returnToTop() {
 function updateHash() {
   const params = new URLSearchParams();
   if (state.input) params.set("q", state.input);
-  if (state.selectedAnswer) params.set("answer", state.selectedAnswer.id);
+  if (state.selectedAnswer) {
+    params.set("answer", state.selectedAnswer.id);
+    params.set("answer_label", state.selectedAnswer.label);
+  }
   history.replaceState(null, "", params.toString() ? `#${params.toString()}` : location.pathname);
 }
 
-function hydrateFromHash() {
+async function hydrateFromHash() {
   const params = new URLSearchParams(location.hash.slice(1));
   const query = params.get("q");
   if (!query) return;
   $("queryInput").value = query;
-  runQuery(query);
+  const restored = await runQuery(query, { keepHash: true });
+  if (!restored) return;
+
+  const answerId = params.get("answer");
+  const answerLabel = params.get("answer_label");
+  if (!answerId) return;
+
+  const choice = state.interpretation?.question?.choices?.find((item) => item.id === answerId);
+  if (choice) {
+    await chooseAnswerObject(choice);
+    return;
+  }
+
+  if (answerLabel) {
+    await chooseAnswerObject({
+      id: answerId || "other",
+      label: answerLabel,
+      meaning: "共有URLから復元された回答",
+    });
+  }
 }
 
 function showToast(message) {
@@ -646,6 +698,20 @@ function bindEvents() {
   document.addEventListener("click", (event) => {
     const choice = event.target.closest("[data-choice-id]");
     if (choice) chooseAnswer(choice.dataset.choiceId);
+
+    if (event.target.closest("#otherAnswerButton")) {
+      const input = $("otherAnswerInput");
+      const label = input?.value.trim();
+      if (!label) {
+        showToast("近い答えを少しだけ入力してください");
+        return;
+      }
+      chooseAnswerObject({
+        id: "other",
+        label,
+        meaning: "ユーザーが自由記述で入力した回答",
+      });
+    }
 
     const path = event.target.closest("[data-path-title]");
     if (path) openDetail(path.dataset.pathTitle);
