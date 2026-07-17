@@ -101,8 +101,13 @@
         </section>
 
         <section class="loading-state hidden" id="loadingState" aria-live="polite">
-          <div class="spinner" aria-hidden="true"></div>
-          <p>道をさがしています…</p>
+          <div class="loading-dots" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <p id="loadingMessage">道をさがしています…</p>
+          <small>少し時間がかかることがあります。画面はそのままで大丈夫です。</small>
         </section>
 
         <section class="results-band hidden" id="resultsBand" aria-labelledby="resultsTitle">

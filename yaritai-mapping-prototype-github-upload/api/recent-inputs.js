@@ -1,4 +1,4 @@
-const { readJson, sendJson } = require("./_openai");
+const { sendJson } = require("./_openai");
 const { checkRateLimit, readInt, sendRateLimited } = require("./_rate-limit");
 
 function cleanInput(value) {
@@ -34,6 +34,7 @@ function normalizeItems(items) {
 
 module.exports = async function handler(req, res) {
   if (req.method !== "GET") return sendJson(res, 405, { error: "method_not_allowed" });
+  const debug = new URL(req.url, "https://fuwajob.local").searchParams.get("debug") === "1";
 
   const rateLimit = checkRateLimit(req, {
     scope: "recent-inputs",
@@ -44,7 +45,7 @@ module.exports = async function handler(req, res) {
 
   try {
     const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
-    if (!webhookUrl) return sendJson(res, 200, { items: [] });
+    if (!webhookUrl) return sendJson(res, 200, debug ? { items: [], debug: "missing_google_sheet_webhook_url" } : { items: [] });
 
     const url = new URL(webhookUrl);
     url.searchParams.set("mode", "recent_inputs");
@@ -57,10 +58,24 @@ module.exports = async function handler(req, res) {
     clearTimeout(timeout);
 
     const data = await response.json().catch(() => ({}));
-    if (!response.ok || data?.ok === false) return sendJson(res, 200, { items: [] });
+    if (!response.ok || data?.ok === false) {
+      return sendJson(
+        res,
+        200,
+        debug
+          ? {
+              items: [],
+              debug: "google_sheet_webhook_error",
+              status: response.status,
+              upstream_error: data?.error || "unknown",
+            }
+          : { items: [] }
+      );
+    }
 
-    sendJson(res, 200, { items: normalizeItems(data.items) });
-  } catch {
-    sendJson(res, 200, { items: [] });
+    const items = normalizeItems(data.items);
+    sendJson(res, 200, debug ? { items, debug: "ok", upstream_count: Array.isArray(data.items) ? data.items.length : 0 } : { items });
+  } catch (error) {
+    sendJson(res, 200, debug ? { items: [], debug: "recent_inputs_failed", error: error.message || "unknown" } : { items: [] });
   }
 };

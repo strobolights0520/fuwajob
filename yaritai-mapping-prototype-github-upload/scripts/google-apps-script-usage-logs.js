@@ -68,21 +68,33 @@ function doGet(event) {
   const inputIndex = headers.indexOf("input_text");
   const receivedIndex = headers.indexOf("received_at");
   const items = [];
+  const fallbackItems = [];
   const seen = {};
+  const fallbackSeen = {};
 
-  for (let rowIndex = values.length - 1; rowIndex >= 1 && items.length < limit; rowIndex -= 1) {
+  for (let rowIndex = values.length - 1; rowIndex >= 1 && (items.length < limit || fallbackItems.length < limit); rowIndex -= 1) {
     const row = values[rowIndex];
     const eventType = String(row[eventIndex] || "");
     const inputText = String(row[inputIndex] || "").replace(/\s+/g, " ").trim();
-    if (eventType !== "input_submitted" || !inputText || seen[inputText]) continue;
-    seen[inputText] = true;
-    items.push({
+    if (!inputText) continue;
+
+    const item = {
       input_text: inputText,
       received_at: row[receivedIndex] || "",
-    });
+    };
+
+    if (!fallbackSeen[inputText] && fallbackItems.length < limit) {
+      fallbackSeen[inputText] = true;
+      fallbackItems.push(item);
+    }
+
+    if (eventType === "input_submitted" && !seen[inputText] && items.length < limit) {
+      seen[inputText] = true;
+      items.push(item);
+    }
   }
 
-  return jsonOutput({ ok: true, items: items });
+  return jsonOutput({ ok: true, items: items.length ? items : fallbackItems });
 }
 
 function jsonOutput(value) {
