@@ -50,6 +50,7 @@ module.exports = async function handler(req, res) {
     const url = new URL(webhookUrl);
     url.searchParams.set("mode", "recent_inputs");
     url.searchParams.set("limit", "10");
+    if (debug) url.searchParams.set("debug", "1");
     if (process.env.LOG_WEBHOOK_TOKEN) url.searchParams.set("token", process.env.LOG_WEBHOOK_TOKEN);
 
     const controller = new AbortController();
@@ -74,7 +75,18 @@ module.exports = async function handler(req, res) {
     }
 
     const items = normalizeItems(data.items);
-    sendJson(res, 200, debug ? { items, debug: "ok", upstream_count: Array.isArray(data.items) ? data.items.length : 0 } : { items });
+    sendJson(
+      res,
+      200,
+      debug
+        ? {
+            items,
+            debug: "ok",
+            upstream_count: Array.isArray(data.items) ? data.items.length : 0,
+            upstream_debug: data.debug || null,
+          }
+        : { items }
+    );
   } catch (error) {
     sendJson(res, 200, debug ? { items: [], debug: "recent_inputs_failed", error: error.message || "unknown" } : { items: [] });
   }

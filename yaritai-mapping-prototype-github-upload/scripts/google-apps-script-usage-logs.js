@@ -28,7 +28,7 @@ function doPost(event) {
     return jsonOutput({ ok: false, error: "invalid_token" });
   }
 
-  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const spreadsheet = openLogSpreadsheet();
   const sheet = spreadsheet.getSheetByName(SHEET_NAME) || spreadsheet.insertSheet(SHEET_NAME);
 
   if (sheet.getLastRow() === 0) {
@@ -45,6 +45,7 @@ function doPost(event) {
 function doGet(event) {
   const expectedToken = PropertiesService.getScriptProperties().getProperty("FUWAJOB_LOG_TOKEN") || "";
   const token = event && event.parameter ? event.parameter.token || "" : "";
+  const debug = event && event.parameter ? event.parameter.debug === "1" : false;
 
   if (expectedToken && token !== expectedToken) {
     return jsonOutput({ ok: false, error: "invalid_token" });
@@ -56,10 +57,14 @@ function doGet(event) {
   }
 
   const limit = Math.max(1, Math.min(Number(event.parameter.limit || 10), 20));
-  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const spreadsheet = openLogSpreadsheet();
   const sheet = spreadsheet.getSheetByName(SHEET_NAME);
   if (!sheet || sheet.getLastRow() < 2) {
-    return jsonOutput({ ok: true, items: [] });
+    return jsonOutput({
+      ok: true,
+      items: [],
+      debug: debug ? buildDebug(spreadsheet, sheet, [], "sheet_missing_or_empty") : undefined,
+    });
   }
 
   const values = sheet.getDataRange().getValues();
@@ -94,7 +99,29 @@ function doGet(event) {
     }
   }
 
-  return jsonOutput({ ok: true, items: items.length ? items : fallbackItems });
+  return jsonOutput({
+    ok: true,
+    items: items.length ? items : fallbackItems,
+    debug: debug ? buildDebug(spreadsheet, sheet, headers, items.length ? "input_submitted_found" : "fallback_or_empty") : undefined,
+  });
+}
+
+function openLogSpreadsheet() {
+  const spreadsheetId = PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID") || "";
+  if (spreadsheetId) return SpreadsheetApp.openById(spreadsheetId);
+  return SpreadsheetApp.getActiveSpreadsheet();
+}
+
+function buildDebug(spreadsheet, sheet, headers, status) {
+  return {
+    status: status,
+    spreadsheet_name: spreadsheet ? spreadsheet.getName() : "",
+    sheet_name: sheet ? sheet.getName() : "",
+    last_row: sheet ? sheet.getLastRow() : 0,
+    headers: headers || [],
+    has_event_type: headers ? headers.indexOf("event_type") !== -1 : false,
+    has_input_text: headers ? headers.indexOf("input_text") !== -1 : false,
+  };
 }
 
 function jsonOutput(value) {
