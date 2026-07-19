@@ -240,8 +240,11 @@ function pathCard(path, label) {
       </div>
       <h4>${escapeHtml(path.title)}</h4>
       <p>${escapeHtml(path.why)}</p>
-      <div class="job-reason">${escapeHtml(path.industry_intro || "この職種がある業界を見てみましょう。")}</div>
-      <div class="industry-row" aria-label="関係する業界">${industries}</div>
+      <div class="industry-callout">
+        <span class="industry-callout-label">この職種がある業界</span>
+        <div class="industry-row" aria-label="関係する業界">${industries}</div>
+        <p>${escapeHtml(path.industry_intro || "この職種がある業界を見てみましょう。")}</p>
+      </div>
       <p class="career-preview">歩み方の例: ${escapeHtml(careerPreview)}</p>
       <div class="card-footer">
         <span class="score">探索候補</span>
